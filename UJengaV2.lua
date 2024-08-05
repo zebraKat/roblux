@@ -49,11 +49,11 @@ Flux:Notification("UJenga2 Loaded!", "Loading has been complete!")
 
 
 SpeedPath:GetPropertyChangedSignal("Text"):Connect(function()
-	Speed.Text = "Speed: "..SpeedPath.Text
+	Speed.Title.Text = "Speed: "..SpeedPath.Text
 end)
 HeightPath:GetPropertyChangedSignal("Text"):Connect(function()
-	Angle.Text = "Ramp Height: "..HeightPath.Text
+	Angle.Title.Text = "Ramp Height: "..HeightPath.Text
 end)
 ObjectPath:GetPropertyChangedSignal("Text"):Connect(function()
-	Object.Text = "Object: "..ObjectPath.Text
+	Object.Title.Text = "Object: "..ObjectPath.Text
 end)
