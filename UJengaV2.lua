@@ -19,13 +19,14 @@ local SoundsList = {DestroyerSound,DeathSound,WinSound,StrikeSound}
 
 local function SpamSounds(e)
 	spamSoundEnabled = e
-	while spamSoundEnabled == true do
-		DestroyerSound:Play()
-		DeathSound:Play()
-		WinSound:Play()
-		StrikeSound:Play()
-		task.wait(0.5)
-		if not spamSoundEnabled then break
+	while true do
+		if spamSoundEnabled then
+			DestroyerSound:Play()
+			DeathSound:Play()
+			WinSound:Play()
+			StrikeSound:Play()
+			task.wait(0.5)
+		end
 	end
 end
 
