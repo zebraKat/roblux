@@ -25,8 +25,9 @@ local function SpamSounds(e)
 			DeathSound:Play()
 			WinSound:Play()
 			StrikeSound:Play()
-			task.wait(0.5)
+			
 		end
+		task.wait(0.5)
 	end
 end
 
