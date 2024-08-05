@@ -13,10 +13,13 @@ local DeathSound = soundPath.PlayerDeath
 local WinSound = soundPath.PlayerWin
 local StrikeSound = soundPath.Strike
 
+local spamSoundEnabled = false
+
 local SoundsList = {DestroyerSound,DeathSound,WinSound,StrikeSound}
 
 local function SpamSounds(e)
-	while e == true do
+	spamSoundEnabled = e
+	while spamSoundEnabled == true do
 		DestroyerSound:Play()
 		DeathSound:Play()
 		WinSound:Play()
