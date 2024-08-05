@@ -1,4 +1,4 @@
-local Flux = loadstring(game:HttpGet"https://pastebin.com/raw/k8uEuXLX")()
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/zebraKat/roblux/main/CusFlux.lua")()
 
 local ToggleKey = Enum.KeyCode.L
 
