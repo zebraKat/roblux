@@ -1,4 +1,4 @@
-local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/zebraKat/roblux/main/CusFlux.lua")()
+local Flux = loadstring(game:HttpGet"https://pastebin.com/raw/k8uEuXLX")()
 
 local ToggleKey = Enum.KeyCode.L
 
@@ -6,9 +6,23 @@ local InfoPath = workspace.Map.Classic.Shooter.ControlPannel
 local SpeedPath:TextLabel = InfoPath.Speed.Screen.SurfaceGui.Frame.NumberValue
 local HeightPath:TextLabel = InfoPath.RampHeight.Screen.SurfaceGui.Frame.NumberValue
 local ObjectPath:TextLabel = InfoPath.Object.Screen.SurfaceGui.Frame.NumberValue
+local soundPath = workspace.Sounds
 
-local function SpamSounds()
-	
+local DestroyerSound = soundPath.DestroyerWin
+local DeathSound = soundPath.PlayerDeath
+local WinSound = soundPath.PlayerWin
+local StrikeSound = soundPath.Strike
+
+local SoundsList = {DestroyerSound,DeathSound,WinSound,StrikeSound}
+
+local function SpamSounds(e)
+	while e == true do
+		DestroyerSound:Play()
+		DeathSound:Play()
+		WinSound:Play()
+		StrikeSound:Play()
+		task.wait(0.5)
+	end
 end
 
 local win = Flux:Window("UJenga V2",game.Players.LocalPlayer.DisplayName, Color3.fromRGB(68, 78, 163), ToggleKey)
