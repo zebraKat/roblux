@@ -25,6 +25,7 @@ local function SpamSounds(e)
 		WinSound:Play()
 		StrikeSound:Play()
 		task.wait(0.5)
+		if not spamSoundEnabled then break
 	end
 end
 
