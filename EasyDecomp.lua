@@ -3,12 +3,23 @@ function x.decomp(modulePATH)
 	assert(modulePATH.ClassName == "ModuleScript" or modulePATH.ClassName == "LocalScript","Please ensure you feed a module script or local script.")
 	local req = require(modulePATH)
 	local returnstring = ""
+
+	local function GoChildTable(a,b)
+		local retString = `b = `.."{"
+		for i,v in b do
+			if typeof(b) == "table" then
+				GoChildTable(b,a)
+			end
+			retString = retString..`\n {a} = {b}::{typeof(b)}`
+		end
+		return retString
+	end
 	
 	local function GoTable(a,NAME)
 		local retString = NAME.." = {"
 		for b,c in a do
 			if typeof(c) == "table" then
-				GoTable(a,b)
+				GoChildTable(c,b)
 			else
 				retString = retString.. `\n {a}.{b} = {c}::{typeof(c)}`
 			end
