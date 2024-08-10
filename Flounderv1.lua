@@ -1,21 +1,23 @@
+local function findNetworkOwnedPart()
+	for i,v in workspace:GetChildren() do
+		if v:IsA("BasePart") then
+			if v.NetworkOwner == game.Players.LocalPlayer then
+				return v
+			end
+		end
+	end
+end
+
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-local partToMove = workspace:WaitForChild("unanchoredPart") -- Replace with your part's name
+local partToMove = findNetworkOwnedPart  -- Replace with your part's name
 local speed = 50 -- Adjust the speed of movement
 local dampingFactor = 1 -- Adjust to fine-tune overshoot behavior
 
 
 
-local function findNetworkOwnedPart()
-	for i,v in workspace:GetChildren() do
-		if v:IsA("BasePart") then
-			if v.NetworkOwner == game.Players.LocalPlayer then
-				partToMove = v
-			end
-		end
-	end
-end
+
 
 
 partToMove.Transparency = 0.85
