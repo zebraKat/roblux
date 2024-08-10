@@ -6,6 +6,7 @@ function x.decomp(modulePATH)
 
 
 	local function GoTable(a,NAME)
+		if typeof(NAME) == "string" or typeof(NAME) == "number" then else NAME = "UnexpectedTableName" end
 		local retString = "\n"..NAME.." = {"
 		for b,c in pairs(a) do
 			if typeof(c) == "table" then
