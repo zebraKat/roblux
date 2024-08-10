@@ -15,7 +15,7 @@ function x.decomp(modulePATH)
 		end
 		return retString
 	end
-	
+
 	local function GoTable(a,NAME)
 		local retString = NAME.." = {"
 		for b,c in pairs(a) do
@@ -27,7 +27,7 @@ function x.decomp(modulePATH)
 		end
 		return retString..`\n}`
 	end
-	
+
 	for i,v in pairs(req) do
 		if typeof(v) == "table" then
 			returnstring = returnstring.. "\n"..GoTable(v,i)
@@ -35,9 +35,9 @@ function x.decomp(modulePATH)
 			returnstring = returnstring.. `\n module.{i} = {v}::{typeof(v)}`
 		end
 	end
-	
+
 	return returnstring
-	
+
 end
 
 return x
