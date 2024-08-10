@@ -27,14 +27,19 @@ function x.decomp(modulePATH)
 		end
 		return retString..`\n}`
 	end
-
-	for i,v in req do
-		if typeof(v) == "table" then
-			returnstring = returnstring.. "\n"..GoTable(v,i)
-		else
-			returnstring = returnstring.. `\n module.{i} = {v}::{typeof(v)}`
+	
+	if typeof(req) == "table" then
+		for i,v in req do
+			if typeof(v) == "table" then
+				returnstring = returnstring.. "\n"..GoTable(v,i)
+			else
+				returnstring = returnstring.. `\n module.{i} = {v}::{typeof(v)}`
+			end
 		end
+	else
+		return req
 	end
+	
 
 	return returnstring
 
