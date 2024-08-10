@@ -5,15 +5,17 @@ function x.decomp(modulePATH)
 	local returnstring = ""
 	
 	local function GoTable(a)
-		local retString = ""
-		for i,v in a do
-			if typeof(v) == "table" then
-				GoTable(v)
+		local retString = "{"
+		for b,c in a do
+			if typeof(c) == "table" then
+				for d,e in c do
+					retString = retString..`\n {c}.{d} = {e}`
+				end
 			else
-				retString = retString.. `\n {i} = {v}`
+				retString = retString.. `\n {a}.{b} = {c}`
 			end
 		end
-		return retString
+		return retString..`}`
 	end
 	
 	for i,v in req do
@@ -27,4 +29,5 @@ function x.decomp(modulePATH)
 	return returnstring
 	
 end
+
 return x
