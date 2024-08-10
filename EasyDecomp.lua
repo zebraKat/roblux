@@ -4,28 +4,17 @@ function x.decomp(modulePATH)
 	local req = require(modulePATH)
 	local returnstring = ""
 
-	local function GoChildTable(a,b)
-		local retString = `b = `.."{"
-		for i,v in pairs(a) do
-			if typeof(v) == "table" then
-				retString = retString.."\n"..GoChildTable(v,i)..","
-			else
-				retString = retString..`\n {a} = {b}::{typeof(b)}`..","
-			end
-		end
-		return retString
-	end
 
 	local function GoTable(a,NAME)
-		local retString = NAME.." = {"
+		local retString = "\n"..NAME.." = {"
 		for b,c in pairs(a) do
 			if typeof(c) == "table" then
-				GoChildTable(c,b)
+				GoTable(c,b)
 			else
 				retString = retString.. `\n {b} = {c}::{typeof(c)},`
 			end
 		end
-		return retString..`\n}`
+		return retString..`\n} -- END OF TABLE`
 	end
 	
 	if typeof(req) == "table" then
