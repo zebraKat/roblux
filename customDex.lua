@@ -4214,7 +4214,6 @@ return search]==]
 
 			ScriptViewer.ViewScript = function(scr)
 				local source = ezD.decomp(scr)
-				if not source then source = "-- DEX - Source failed to decompile" end
 				codeFrame:SetText(source:gsub("\0", "\\0")) -- Fix stupid breaking script viewer
 				window:Show()
 			end
