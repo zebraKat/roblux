@@ -1,5 +1,5 @@
-
-function decomp(modulePATH)
+local x = {}
+function x.decomp(modulePATH)
 	assert(modulePATH.ClassName == "ModuleScript" or modulePATH.ClassName == "LocalScript","Please ensure you feed a module script or local script.")
 	local req = require(modulePATH)
 	local returnstring = ""
@@ -27,3 +27,4 @@ function decomp(modulePATH)
 	return returnstring
 	
 end
+return x
