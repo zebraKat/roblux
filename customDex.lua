@@ -4213,8 +4213,8 @@ return search]==]
 			local PreviousScr = nil
 
 			ScriptViewer.ViewScript = function(scr)
-				local success, source = pcall(ezD.decomp(scr))
-				if not success or not source then source, PreviousScr = "-- DEX - Source failed to decompile", nil else PreviousScr = scr end
+				local source = ezD.decomp(scr)
+				if not source then source = "-- DEX - Source failed to decompile" end
 				codeFrame:SetText(source:gsub("\0", "\\0")) -- Fix stupid breaking script viewer
 				window:Show()
 			end
