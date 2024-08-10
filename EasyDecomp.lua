@@ -8,9 +8,10 @@ function x.decomp(modulePATH)
 		local retString = `b = `.."{"
 		for i,v in pairs(a) do
 			if typeof(v) == "table" then
-				GoChildTable(v,i)
+				retString = retString.."\n"..GoChildTable(v,i)
+			else
+				retString = retString..`\n {a} = {b}::{typeof(b)}`
 			end
-			retString = retString..`\n {a} = {b}::{typeof(b)}`
 		end
 		return retString
 	end
