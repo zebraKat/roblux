@@ -4,25 +4,23 @@ function x.decomp(modulePATH)
 	local req = require(modulePATH)
 	local returnstring = ""
 	
-	local function GoTable(a)
-		local retString = "{"
+	local function GoTable(a,NAME)
+		local retString = NAME.." = {"
 		for b,c in a do
 			if typeof(c) == "table" then
-				for d,e in c do
-					retString = retString..`\n {c}.{d} = {e} *TYPE = {typeof(e)}`
-				end
+				GoTable(a,b)
 			else
-				retString = retString.. `\n {a}.{b} = {c} *TYPE = {typeof(c)}`
+				retString = retString.. `\n {a}.{b} = {c}::{typeof(c)}`
 			end
 		end
-		return retString..`}`
+		return retString..`\n}`
 	end
 	
 	for i,v in req do
 		if typeof(v) == "table" then
-			GoTable(v)
+			returnstring = returnstring.. "\n"..GoTable(v,i)
 		else
-			returnstring = returnstring.. `\n module.{i} = {v} *TYPE = {typeof(v)}`
+			returnstring = returnstring.. `\n module.{i} = {v}::{typeof(v)}`
 		end
 	end
 	
