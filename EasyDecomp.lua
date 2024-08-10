@@ -28,7 +28,7 @@ function x.decomp(modulePATH)
 		return retString..`\n}`
 	end
 
-	for i,v in pairs(req) do
+	for i,v in req do
 		if typeof(v) == "table" then
 			returnstring = returnstring.. "\n"..GoTable(v,i)
 		else
