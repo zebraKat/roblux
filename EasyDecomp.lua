@@ -9,10 +9,10 @@ function x.decomp(modulePATH)
 		for b,c in a do
 			if typeof(c) == "table" then
 				for d,e in c do
-					retString = retString..`\n {c}.{d} = {e} *{typeof(e)}`
+					retString = retString..`\n {c}.{d} = {e} *TYPE = {typeof(e)}`
 				end
 			else
-				retString = retString.. `\n {a}.{b} = {c} *{typeof(c)}`
+				retString = retString.. `\n {a}.{b} = {c} *TYPE = {typeof(c)}`
 			end
 		end
 		return retString..`}`
@@ -22,7 +22,7 @@ function x.decomp(modulePATH)
 		if typeof(v) == "table" then
 			GoTable(v)
 		else
-			returnstring = returnstring.. `\n module.{i} = {v} *{typeof(v)}`
+			returnstring = returnstring.. `\n module.{i} = {v} *TYPE = {typeof(v)}`
 		end
 	end
 	
