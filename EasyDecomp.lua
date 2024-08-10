@@ -6,9 +6,9 @@ function x.decomp(modulePATH)
 
 	local function GoChildTable(a,b)
 		local retString = `b = `.."{"
-		for i,v in b do
-			if typeof(b) == "table" then
-				GoChildTable(b,a)
+		for i,v in pairs(a) do
+			if typeof(v) == "table" then
+				GoChildTable(v,i)
 			end
 			retString = retString..`\n {a} = {b}::{typeof(b)}`
 		end
@@ -17,7 +17,7 @@ function x.decomp(modulePATH)
 	
 	local function GoTable(a,NAME)
 		local retString = NAME.." = {"
-		for b,c in a do
+		for b,c in pairs(a) do
 			if typeof(c) == "table" then
 				GoChildTable(c,b)
 			else
@@ -27,7 +27,7 @@ function x.decomp(modulePATH)
 		return retString..`\n}`
 	end
 	
-	for i,v in req do
+	for i,v in pairs(req) do
 		if typeof(v) == "table" then
 			returnstring = returnstring.. "\n"..GoTable(v,i)
 		else
