@@ -1,38 +1,62 @@
-local x = {}
-function x.decomp(modulePATH)
-	assert(modulePATH.ClassName == "ModuleScript" or modulePATH.ClassName == "LocalScript","Please ensure you feed a module script or local script.")
-	local req = require(modulePATH)
-	local returnstring = ""
+local ezDecomp = {}
 
+print "Running EzDecomp V2 (Module Scripts only Currently)"
 
-	local function GoTable(a,NAME)
-		if typeof(NAME) == "string" or typeof(NAME) == "number" then else NAME = "UnexpectedTableName" end
-		local retString = "\n"..NAME.." = {"
-		for b,c in pairs(a) do
-			if typeof(c) == "table" then
-				GoTable(c,b)
+function ezDecomp.decomp(mod)
+	assert(mod:IsA("ModuleScript"))
+
+	local req 
+
+	local success, err = pcall(function()
+		req = require(mod)
+	end)
+
+	if success then print("EzDecomp successfully decompiled the ModuleScript!") else 
+		error("Easy Decomp: "..err)
+	end
+
+	local returnString = mod.Name.." = {}"
+
+	local function AddToReturn(addon)
+		returnString = returnString..`\n{addon}`
+	end
+
+	local function DecompMain(value,name):string
+		if type(value) == "string" then
+			return `{name}:{typeof(value)} = "{value}"`
+		else
+			return `{name}:{typeof(value)} = {value}`
+		end
+	end
+
+	local function DecompTable(table,name)
+		local ret = `{name} = {"{"}`
+
+		local function AddToRet(addon)
+			ret = ret..`\n{addon}`
+		end
+
+		for i,v in pairs(table) do
+			if type(v) == "table" then
+				AddToRet("	"..DecompTable(v,i))
 			else
-				retString = retString.. `\n {b} = {c}::{typeof(c)},`
+				AddToRet("	"..DecompMain(v,i))
 			end
 		end
-		return retString..`\n} -- END OF TABLE`
+
+		return ret.."\n}"
 	end
-	
-	if typeof(req) == "table" then
-		for i,v in req do
-			if typeof(v) == "table" then
-				returnstring = returnstring.. "\n"..GoTable(v,i)
-			else
-				returnstring = returnstring.. `\n module.{i} = {v}::{typeof(v)}`
-			end
+
+	for i,v in req do
+		if typeof(v) == "table" then
+			AddToReturn(DecompTable(v,i))
+		else
+			AddToReturn(DecompMain(v,i))
 		end
-	else
-		return req
 	end
-	
 
-	return returnstring
 
+	return returnString..`\n{"return"} {mod.Name}`
 end
 
-return x
+return ezDecomp
