@@ -283,9 +283,9 @@ local function ZNMQOGF_fake_script() -- ExecuteButton.LocalScript
 	
 	local env = getfenv(0)
 
-	local lbi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Rerumu/Rerubi/master/Source.lua"))()
+	local vluau = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/loader.lua"))()
 	script.Parent.MouseButton1Click:Connect(function()
-		local x = lbi(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)
+		local x = vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)
 		print(x)
 	end)
 end
