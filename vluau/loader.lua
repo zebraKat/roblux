@@ -45,8 +45,8 @@
 		github:TheGreatSageEqualToHeaven/Fiu (  Luau Bytecode Interpreter written in Luau  )
 --]]
 
-local Loader = require(script:WaitForChild("Fiu"))
-local Compiler = require(script:WaitForChild("LuauInLuau"))
+local Loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/Fiu.lua"))()
+local Compiler = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/LuauInLuau.lua"))()
 
 local function ValidLuauBytecode(bytecode)
 	return string.unpack(">B", bytecode, 1) == 3
