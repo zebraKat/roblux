@@ -1,7 +1,5 @@
--- Gui to Lua
--- Version: 3.2
+local lbi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Rerumu/Rerubi/master/Source.lua"))()
 
--- Instances:
 
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
@@ -285,7 +283,7 @@ local function ZNMQOGF_fake_script() -- ExecuteButton.LocalScript
 	local script = Instance.new('LocalScript', ExecuteButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
-		loadstring(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text)
+		lbi(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text)
 	end)
 end
 coroutine.wrap(ZNMQOGF_fake_script)()
