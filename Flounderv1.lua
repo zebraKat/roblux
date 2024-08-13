@@ -285,8 +285,7 @@ local function ZNMQOGF_fake_script() -- ExecuteButton.LocalScript
 
 	local vluau = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/loader.lua"))()
 	script.Parent.MouseButton1Click:Connect(function()
-		local x = vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)
-		print(x)
+		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
 coroutine.wrap(ZNMQOGF_fake_script)()
