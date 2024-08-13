@@ -10,7 +10,7 @@
 ]]
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 
-local ezD = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/EasyDecomp.lua", true))
+local easyDecomp = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/EasyDecomp.lua", true))
 
 local nodes = {}
 local selection
@@ -4213,7 +4213,7 @@ return search]==]
 			local PreviousScr = nil
 
 			ScriptViewer.ViewScript = function(scr)
-				local source = ezD.decomp(scr)
+				local source = easyDecomp.Decompile(scr)
 				codeFrame:SetText(source:gsub("\0", "\\0")) -- Fix stupid breaking script viewer
 				window:Show()
 			end
