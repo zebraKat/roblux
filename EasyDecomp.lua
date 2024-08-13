@@ -2,9 +2,9 @@ local ezDecomp = {}
 
 print("Running EzDecomp V2 (Module Scripts only Currently)")
 
-function ezDecomp.decomp(mod)
+function ezDecomp.Decompile(mod)
 	assert(mod:IsA("ModuleScript"))
-	local timer1 = tick()
+
 	local req
 
 	local success, err = pcall(function()
@@ -56,9 +56,7 @@ function ezDecomp.decomp(mod)
 			AddToReturn(DecompMain(v, i))
 		end
 	end
-	local timer2 = ()
 
-	print(`It took {timer1 - timer2} seconds to decompile {mod}!`)
 	return returnString .. `\n{"return"} {mod.Name}`
 end
 
