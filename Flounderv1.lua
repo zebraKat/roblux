@@ -336,6 +336,7 @@ ScrollingFrame.TopImage = ""
 
 Text.Name = "Text"
 Text.Parent = ScrollingFrame
+Text.RichText = true
 Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Text.BackgroundTransparency = 1.000
 Text.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -350,7 +351,7 @@ Text.TextYAlignment = Enum.TextYAlignment.Top
 
 -- Scripts:
 
-local function FICPB_fake_script() -- CloseButton.LocalScript 
+local function NFSVNZ_fake_script() -- CloseButton.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -366,16 +367,16 @@ local function FICPB_fake_script() -- CloseButton.LocalScript
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(FICPB_fake_script)()
-local function FVSI_fake_script() -- ConsoleButton.LocalScript 
+coroutine.wrap(NFSVNZ_fake_script)()
+local function ZVNOTR_fake_script() -- ConsoleButton.LocalScript 
 	local script = Instance.new('LocalScript', ConsoleButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.Parent.ConsoleMain.Visible = true
 	end)
 end
-coroutine.wrap(FVSI_fake_script)()
-local function RHDH_fake_script() -- ExecuteButton.LocalScript 
+coroutine.wrap(ZVNOTR_fake_script)()
+local function UMWSD_fake_script() -- ExecuteButton.LocalScript 
 	local script = Instance.new('LocalScript', ExecuteButton)
 
 	
@@ -386,23 +387,23 @@ local function RHDH_fake_script() -- ExecuteButton.LocalScript
 		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
-coroutine.wrap(RHDH_fake_script)()
-local function SUQPU_fake_script() -- ClearButton.LocalScript 
+coroutine.wrap(UMWSD_fake_script)()
+local function NZWG_fake_script() -- ClearButton.LocalScript 
 	local script = Instance.new('LocalScript', ClearButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text = ""
 	end)
 end
-coroutine.wrap(SUQPU_fake_script)()
-local function TDOMRR_fake_script() -- TextArea_2.LocalScript 
+coroutine.wrap(NZWG_fake_script)()
+local function XILIKVF_fake_script() -- TextArea_2.LocalScript 
 	local script = Instance.new('LocalScript', TextArea_2)
 
 	task.wait(0.5)
 	script.Parent.Text = "print('Hello World!')"
 end
-coroutine.wrap(TDOMRR_fake_script)()
-local function LPBRTAR_fake_script() -- NumLines.LocalScript 
+coroutine.wrap(XILIKVF_fake_script)()
+local function WYCZ_fake_script() -- NumLines.LocalScript 
 	local script = Instance.new('LocalScript', NumLines)
 
 	local numberTemplate = script.Parent.NumberTemplate
@@ -428,50 +429,14 @@ local function LPBRTAR_fake_script() -- NumLines.LocalScript
 		end
 	end)
 end
-coroutine.wrap(LPBRTAR_fake_script)()
-local function YVQT_fake_script() -- Main.Dragify 
+coroutine.wrap(WYCZ_fake_script)()
+local function HLUCO_fake_script() -- Main.LocalScript 
 	local script = Instance.new('LocalScript', Main)
 
-	local UIS = game:GetService("UserInputService")
-	function dragify(Frame)
-	    dragToggle = nil
-	    local dragSpeed = 0.50
-	    dragInput = nil
-	    dragStart = nil
-	    local dragPos = nil
-	    function updateInput(input)
-	        local Delta = input.Position - dragStart
-	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
-	        game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.30), {Position = Position}):Play()
-	    end
-	    Frame.InputBegan:Connect(function(input)
-	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
-	            dragToggle = true
-	            dragStart = input.Position
-	            startPos = Frame.Position
-	            input.Changed:Connect(function()
-	                if input.UserInputState == Enum.UserInputState.End then
-	                    dragToggle = false
-	                end
-	            end)
-	        end
-	    end)
-	    Frame.InputChanged:Connect(function(input)
-	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-	            dragInput = input
-	        end
-	    end)
-	    game:GetService("UserInputService").InputChanged:Connect(function(input)
-	        if input == dragInput and dragToggle then
-	            updateInput(input)
-	        end
-	    end)
-	end
-	
-	dragify(script.Parent)
+	script.Parent.Draggable = true
 end
-coroutine.wrap(YVQT_fake_script)()
-local function EZWYI_fake_script() -- CloseButton_2.LocalScript 
+coroutine.wrap(HLUCO_fake_script)()
+local function SCCM_fake_script() -- CloseButton_2.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton_2)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -487,8 +452,8 @@ local function EZWYI_fake_script() -- CloseButton_2.LocalScript
 		script.Parent.Parent.Parent.Visible = false
 	end)
 end
-coroutine.wrap(EZWYI_fake_script)()
-local function SHPOII_fake_script() -- Text.LocalScript 
+coroutine.wrap(SCCM_fake_script)()
+local function LSOT_fake_script() -- Text.LocalScript 
 	local script = Instance.new('LocalScript', Text)
 
 	local ls = game:GetService("LogService")
@@ -508,53 +473,17 @@ local function SHPOII_fake_script() -- Text.LocalScript
 		textbox.Text = text..`\n{addon}`
 	end)
 end
-coroutine.wrap(SHPOII_fake_script)()
-local function DFKKPW_fake_script() -- ConsoleMain.Dragify 
+coroutine.wrap(LSOT_fake_script)()
+local function VDVS_fake_script() -- ConsoleMain.LocalScript 
 	local script = Instance.new('LocalScript', ConsoleMain)
 
-	local UIS = game:GetService("UserInputService")
-	function dragify(Frame)
-	    dragToggle = nil
-	    local dragSpeed = 0.50
-	    dragInput = nil
-	    dragStart = nil
-	    local dragPos = nil
-	    function updateInput(input)
-	        local Delta = input.Position - dragStart
-	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
-	        game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.30), {Position = Position}):Play()
-	    end
-	    Frame.InputBegan:Connect(function(input)
-	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
-	            dragToggle = true
-	            dragStart = input.Position
-	            startPos = Frame.Position
-	            input.Changed:Connect(function()
-	                if input.UserInputState == Enum.UserInputState.End then
-	                    dragToggle = false
-	                end
-	            end)
-	        end
-	    end)
-	    Frame.InputChanged:Connect(function(input)
-	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-	            dragInput = input
-	        end
-	    end)
-	    game:GetService("UserInputService").InputChanged:Connect(function(input)
-	        if input == dragInput and dragToggle then
-	            updateInput(input)
-	        end
-	    end)
-	end
-	
-	dragify(script.Parent)
+	script.Parent.Draggable = true
 end
-coroutine.wrap(DFKKPW_fake_script)()
-local function FPQCXG_fake_script() -- ScreenGui.Script 
+coroutine.wrap(VDVS_fake_script)()
+local function GFVY_fake_script() -- ScreenGui.Script 
 	local script = Instance.new('Script', ScreenGui)
 
 	--TODO ADD FILE SAVING AND OPENING TO SAVE USE if writefileExploit() then writefileCooldown("name.txt", INSIDE) end
 	-- TODO TO CHECK IF FILE EXIST DO  readfile(filename) ???
 end
-coroutine.wrap(FPQCXG_fake_script)()
+coroutine.wrap(GFVY_fake_script)()
