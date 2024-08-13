@@ -43,7 +43,7 @@ local Text = Instance.new("TextLabel")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 Main.Name = "Main"
-Main.Parent = ScreenGui
+Main.Parent = game.CoreGui
 Main.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
 Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Main.BorderSizePixel = 0
@@ -350,7 +350,7 @@ Text.TextYAlignment = Enum.TextYAlignment.Top
 
 -- Scripts:
 
-local function MQUIQ_fake_script() -- CloseButton.LocalScript 
+local function FCBH_fake_script() -- CloseButton.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -366,8 +366,16 @@ local function MQUIQ_fake_script() -- CloseButton.LocalScript
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(MQUIQ_fake_script)()
-local function PLNRSD_fake_script() -- ExecuteButton.LocalScript 
+coroutine.wrap(FCBH_fake_script)()
+local function RRUW_fake_script() -- ConsoleButton.LocalScript 
+	local script = Instance.new('LocalScript', ConsoleButton)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Parent.Parent.Parent.ConsoleMain.Visible = true
+	end)
+end
+coroutine.wrap(RRUW_fake_script)()
+local function GGUT_fake_script() -- ExecuteButton.LocalScript 
 	local script = Instance.new('LocalScript', ExecuteButton)
 
 	
@@ -378,23 +386,23 @@ local function PLNRSD_fake_script() -- ExecuteButton.LocalScript
 		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
-coroutine.wrap(PLNRSD_fake_script)()
-local function NNIMRHH_fake_script() -- ClearButton.LocalScript 
+coroutine.wrap(GGUT_fake_script)()
+local function IKLVWEM_fake_script() -- ClearButton.LocalScript 
 	local script = Instance.new('LocalScript', ClearButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text = ""
 	end)
 end
-coroutine.wrap(NNIMRHH_fake_script)()
-local function JJRYSBF_fake_script() -- TextArea_2.LocalScript 
+coroutine.wrap(IKLVWEM_fake_script)()
+local function XRIYC_fake_script() -- TextArea_2.LocalScript 
 	local script = Instance.new('LocalScript', TextArea_2)
 
 	task.wait(0.5)
 	script.Parent.Text = "print('Hello World!')"
 end
-coroutine.wrap(JJRYSBF_fake_script)()
-local function XQKKPHL_fake_script() -- NumLines.LocalScript 
+coroutine.wrap(XRIYC_fake_script)()
+local function TVGCOF_fake_script() -- NumLines.LocalScript 
 	local script = Instance.new('LocalScript', NumLines)
 
 	local numberTemplate = script.Parent.NumberTemplate
@@ -420,8 +428,8 @@ local function XQKKPHL_fake_script() -- NumLines.LocalScript
 		end
 	end)
 end
-coroutine.wrap(XQKKPHL_fake_script)()
-local function WPKAZ_fake_script() -- Main.Dragify 
+coroutine.wrap(TVGCOF_fake_script)()
+local function SJBS_fake_script() -- Main.Dragify 
 	local script = Instance.new('LocalScript', Main)
 
 	local UIS = game:GetService("UserInputService")
@@ -462,8 +470,8 @@ local function WPKAZ_fake_script() -- Main.Dragify
 	
 	dragify(script.Parent)
 end
-coroutine.wrap(WPKAZ_fake_script)()
-local function XMPSOA_fake_script() -- CloseButton_2.LocalScript 
+coroutine.wrap(SJBS_fake_script)()
+local function DWES_fake_script() -- CloseButton_2.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton_2)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -479,8 +487,8 @@ local function XMPSOA_fake_script() -- CloseButton_2.LocalScript
 		script.Parent.Parent.Parent.Visible = false
 	end)
 end
-coroutine.wrap(XMPSOA_fake_script)()
-local function DZAHP_fake_script() -- Text.LocalScript 
+coroutine.wrap(DWES_fake_script)()
+local function VPOYG_fake_script() -- Text.LocalScript 
 	local script = Instance.new('LocalScript', Text)
 
 	local ls = game:GetService("LogService")
@@ -500,4 +508,4 @@ local function DZAHP_fake_script() -- Text.LocalScript
 		textbox.Text = text..`\n{addon}`
 	end)
 end
-coroutine.wrap(DZAHP_fake_script)()
+coroutine.wrap(VPOYG_fake_script)()
