@@ -1,4 +1,7 @@
+-- Gui to Lua
+-- Version: 3.2
 
+-- Instances:
 
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
@@ -26,6 +29,14 @@ local NumLines = Instance.new("Frame")
 local UIListLayout_3 = Instance.new("UIListLayout")
 local NumberTemplate = Instance.new("TextLabel")
 local UIListLayout_4 = Instance.new("UIListLayout")
+local ConsoleMain = Instance.new("Frame")
+local TopBar_2 = Instance.new("Frame")
+local Title_2 = Instance.new("TextLabel")
+local UIPadding_4 = Instance.new("UIPadding")
+local CloseButton_2 = Instance.new("TextButton")
+local UIPadding_5 = Instance.new("UIPadding")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local Text = Instance.new("TextLabel")
 
 --Properties:
 
@@ -259,9 +270,87 @@ NumberTemplate.TextSize = 15.000
 UIListLayout_4.Parent = TextArea
 UIListLayout_4.FillDirection = Enum.FillDirection.Horizontal
 
+ConsoleMain.Name = "ConsoleMain"
+ConsoleMain.Parent = ScreenGui
+ConsoleMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+ConsoleMain.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ConsoleMain.BorderSizePixel = 0
+ConsoleMain.Position = UDim2.new(0.322287202, 0, 0.25555557, 0)
+ConsoleMain.Size = UDim2.new(0, 546, 0, 246)
+ConsoleMain.Visible = false
+
+TopBar_2.Name = "TopBar"
+TopBar_2.Parent = ConsoleMain
+TopBar_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TopBar_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TopBar_2.BorderSizePixel = 0
+TopBar_2.Size = UDim2.new(1, 0, 0, 23)
+
+Title_2.Name = "Title"
+Title_2.Parent = TopBar_2
+Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title_2.BackgroundTransparency = 1.000
+Title_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Title_2.BorderSizePixel = 0
+Title_2.Size = UDim2.new(0.25, 0, 1, 0)
+Title_2.Font = Enum.Font.Arial
+Title_2.Text = "Flounder - Console"
+Title_2.TextColor3 = Color3.fromRGB(115, 115, 115)
+Title_2.TextSize = 12.000
+Title_2.TextXAlignment = Enum.TextXAlignment.Left
+
+UIPadding_4.Parent = Title_2
+UIPadding_4.PaddingLeft = UDim.new(0, 5)
+
+CloseButton_2.Name = "CloseButton"
+CloseButton_2.Parent = TopBar_2
+CloseButton_2.AnchorPoint = Vector2.new(1, 0)
+CloseButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+CloseButton_2.BorderSizePixel = 0
+CloseButton_2.Position = UDim2.new(1, 0, 0, 0)
+CloseButton_2.Size = UDim2.new(0, 23, 1, 0)
+CloseButton_2.AutoButtonColor = false
+CloseButton_2.Font = Enum.Font.SourceSans
+CloseButton_2.Text = "x"
+CloseButton_2.TextColor3 = Color3.fromRGB(115, 115, 115)
+CloseButton_2.TextScaled = true
+CloseButton_2.TextSize = 14.000
+CloseButton_2.TextWrapped = true
+
+UIPadding_5.Parent = CloseButton_2
+UIPadding_5.PaddingBottom = UDim.new(0, 3)
+
+ScrollingFrame.Parent = ConsoleMain
+ScrollingFrame.Active = true
+ScrollingFrame.AnchorPoint = Vector2.new(0, 1)
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.BackgroundTransparency = 1.000
+ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Position = UDim2.new(0, 0, 1, 0)
+ScrollingFrame.Size = UDim2.new(1, 0, 1, -23)
+ScrollingFrame.BottomImage = ""
+ScrollingFrame.ScrollBarThickness = 5
+ScrollingFrame.TopImage = ""
+
+Text.Name = "Text"
+Text.Parent = ScrollingFrame
+Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Text.BackgroundTransparency = 1.000
+Text.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Text.BorderSizePixel = 0
+Text.Size = UDim2.new(1, 0, 1, 0)
+Text.Font = Enum.Font.Arial
+Text.Text = "Console"
+Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+Text.TextSize = 14.000
+Text.TextXAlignment = Enum.TextXAlignment.Left
+Text.TextYAlignment = Enum.TextYAlignment.Top
+
 -- Scripts:
 
-local function XGTVVV_fake_script() -- CloseButton.LocalScript 
+local function MQUIQ_fake_script() -- CloseButton.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -277,34 +366,35 @@ local function XGTVVV_fake_script() -- CloseButton.LocalScript
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(XGTVVV_fake_script)()
-local function ZNMQOGF_fake_script() -- ExecuteButton.LocalScript 
+coroutine.wrap(MQUIQ_fake_script)()
+local function PLNRSD_fake_script() -- ExecuteButton.LocalScript 
 	local script = Instance.new('LocalScript', ExecuteButton)
+
 	
 	local env = getfenv(0)
-
+	
 	local vluau = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/loader.lua"))()
 	script.Parent.MouseButton1Click:Connect(function()
 		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
-coroutine.wrap(ZNMQOGF_fake_script)()
-local function KAZM_fake_script() -- ClearButton.LocalScript 
+coroutine.wrap(PLNRSD_fake_script)()
+local function NNIMRHH_fake_script() -- ClearButton.LocalScript 
 	local script = Instance.new('LocalScript', ClearButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text = ""
 	end)
 end
-coroutine.wrap(KAZM_fake_script)()
-local function POJQQO_fake_script() -- TextArea_2.LocalScript 
+coroutine.wrap(NNIMRHH_fake_script)()
+local function JJRYSBF_fake_script() -- TextArea_2.LocalScript 
 	local script = Instance.new('LocalScript', TextArea_2)
 
 	task.wait(0.5)
 	script.Parent.Text = "print('Hello World!')"
 end
-coroutine.wrap(POJQQO_fake_script)()
-local function OMFJ_fake_script() -- NumLines.LocalScript 
+coroutine.wrap(JJRYSBF_fake_script)()
+local function XQKKPHL_fake_script() -- NumLines.LocalScript 
 	local script = Instance.new('LocalScript', NumLines)
 
 	local numberTemplate = script.Parent.NumberTemplate
@@ -330,4 +420,84 @@ local function OMFJ_fake_script() -- NumLines.LocalScript
 		end
 	end)
 end
-coroutine.wrap(OMFJ_fake_script)()
+coroutine.wrap(XQKKPHL_fake_script)()
+local function WPKAZ_fake_script() -- Main.Dragify 
+	local script = Instance.new('LocalScript', Main)
+
+	local UIS = game:GetService("UserInputService")
+	function dragify(Frame)
+	    dragToggle = nil
+	    local dragSpeed = 0.50
+	    dragInput = nil
+	    dragStart = nil
+	    local dragPos = nil
+	    function updateInput(input)
+	        local Delta = input.Position - dragStart
+	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+	        game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.30), {Position = Position}):Play()
+	    end
+	    Frame.InputBegan:Connect(function(input)
+	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+	            dragToggle = true
+	            dragStart = input.Position
+	            startPos = Frame.Position
+	            input.Changed:Connect(function()
+	                if input.UserInputState == Enum.UserInputState.End then
+	                    dragToggle = false
+	                end
+	            end)
+	        end
+	    end)
+	    Frame.InputChanged:Connect(function(input)
+	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	            dragInput = input
+	        end
+	    end)
+	    game:GetService("UserInputService").InputChanged:Connect(function(input)
+	        if input == dragInput and dragToggle then
+	            updateInput(input)
+	        end
+	    end)
+	end
+	
+	dragify(script.Parent)
+end
+coroutine.wrap(WPKAZ_fake_script)()
+local function XMPSOA_fake_script() -- CloseButton_2.LocalScript 
+	local script = Instance.new('LocalScript', CloseButton_2)
+
+	script.Parent.MouseEnter:Connect(function()
+		script.Parent.BackgroundColor3 = Color3.new(1,0,0)
+	end)
+	script.Parent.MouseLeave:Connect(function()
+		script.Parent.BackgroundColor3 = Color3.new(1,1,1)
+	end)
+	script.Parent.MouseButton1Down:Connect(function()
+		script.Parent.BackgroundColor3 = Color3.new(0.60,0,0)
+	end)
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Parent.Visible = false
+	end)
+end
+coroutine.wrap(XMPSOA_fake_script)()
+local function DZAHP_fake_script() -- Text.LocalScript 
+	local script = Instance.new('LocalScript', Text)
+
+	local ls = game:GetService("LogService")
+	local textbox = script.Parent
+	
+	
+	
+	ls.MessageOut:Connect(function(message,msgtype)
+		local text = textbox.Text
+		local addon = message
+		if msgtype == Enum.MessageType.MessageError then
+			addon = "<font color='rgb(221,18,12)'>"..addon.."</font>"
+		elseif msgtype == Enum.MessageType.MessageWarning then
+			addon = "<font color='rgb(235,146,26)'>"..addon.."</font>"
+		end
+		
+		textbox.Text = text..`\n{addon}`
+	end)
+end
+coroutine.wrap(DZAHP_fake_script)()
