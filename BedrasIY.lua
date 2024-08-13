@@ -4452,7 +4452,7 @@ CMDs[#CMDs + 1] = {NAME = 'tweengotopart / tgotopart [part name]', DESC = 'Tween
 CMDs[#CMDs + 1] = {NAME = 'gotopartclass / gpc [class name]', DESC = 'Moves your character to a part or multiple parts based on classname'}
 CMDs[#CMDs + 1] = {NAME = 'tweengotopartclass / tgpc [class name]', DESC = 'Tweens your character to a part or multiple parts based on classname'}
 CMDs[#CMDs + 1] = {NAME = 'gotomodel [part name]', DESC = 'Moves your character to a model or multiple models'}
-CMDs[#CMDs + 1] = {NAME = 'givehat [to]', DESC = 'gives the hat larger to a baldi'}
+CMDs[#CMDs + 1] = {NAME = 'givehat [thenigger]', DESC = 'gives the hat larger to a baldi'}
 CMDs[#CMDs + 1] = {NAME = 'tweengotomodel / tgotomodel [part name]', DESC = 'Tweens your character to a model or multiple models'}
 CMDs[#CMDs + 1] = {NAME = 'gotopartdelay / gotomodeldelay [num]', DESC = 'Adjusts how quickly you teleport to each part (default is 0.1)'}
 CMDs[#CMDs + 1] = {NAME = 'bringpart [part name] (CLIENT)', DESC = 'Moves a part or multiple parts to your character'}
@@ -10548,7 +10548,7 @@ end)
 
 addcmd('explorer', {'dex'}, function(args, speaker)
 	notify('Loading', 'Hold on a sec')
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/customDex.lua"))()
 end)
 
 addcmd('olddex', {'odex'}, function(args, speaker)
@@ -12003,7 +12003,7 @@ end)
 
 function givehat(speaker,target)
 		local player = speaker.Character
-		local to = target.Character
+		local nigga = target.Character
 		local function findfirstchildofclass(obj,x)
     for i,v in pairs(obj:GetChildren()) do
         if v.ClassName == x then
@@ -12034,7 +12034,7 @@ end)
 
 spawn(function()
 for yes = 1, 100 do
-	player["HumanoidRootPart"].CFrame = to["HumanoidRootPart"].CFrame
+	player["HumanoidRootPart"].CFrame = nigga["HumanoidRootPart"].CFrame
 	wait()
 end
 end)
@@ -13017,3 +13017,4 @@ coroutine.wrap(function()
 	IntroBackground:Destroy()
 	minimizeHolder()
 end)()
+print("Bedras IY has loaded!")
