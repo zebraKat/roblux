@@ -10,7 +10,7 @@
 ]]
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 
-local ezD = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/EasyDecomp.lua", true))()
+local ezD = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/EasyDecomp.lua", true))
 
 local nodes = {}
 local selection
