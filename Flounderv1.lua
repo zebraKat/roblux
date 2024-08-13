@@ -282,18 +282,10 @@ local function ZNMQOGF_fake_script() -- ExecuteButton.LocalScript
 	local script = Instance.new('LocalScript', ExecuteButton)
 	
 	local env = getfenv(0)
-	local fio
 
-	local function wrap_func(fn)
-		local bc = string.byte(fn)
-		local state = fio.bc_to_state(bc)
-
-		return fio.wrap_state(state, env)
-	end
-
-	fio = loadstring(game:HttpGet("https://raw.githubusercontent.com/Rerumu/FiOne/master/source.lua"))()
+	local lbi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Rerumu/Rerubi/master/Source.lua"))()
 	script.Parent.MouseButton1Click:Connect(function()
-		local x = wrap_func(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text)()
+		local x = lbi(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)
 		print(x)
 	end)
 end
