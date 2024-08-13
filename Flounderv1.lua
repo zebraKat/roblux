@@ -43,7 +43,7 @@ local Text = Instance.new("TextLabel")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 Main.Name = "Main"
-Main.Parent = game.CoreGui
+Main.Parent = ScreenGui
 Main.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
 Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Main.BorderSizePixel = 0
@@ -350,7 +350,7 @@ Text.TextYAlignment = Enum.TextYAlignment.Top
 
 -- Scripts:
 
-local function FCBH_fake_script() -- CloseButton.LocalScript 
+local function BISMYK_fake_script() -- CloseButton.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -366,16 +366,16 @@ local function FCBH_fake_script() -- CloseButton.LocalScript
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(FCBH_fake_script)()
-local function RRUW_fake_script() -- ConsoleButton.LocalScript 
+coroutine.wrap(BISMYK_fake_script)()
+local function GUOBZH_fake_script() -- ConsoleButton.LocalScript 
 	local script = Instance.new('LocalScript', ConsoleButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.Parent.ConsoleMain.Visible = true
 	end)
 end
-coroutine.wrap(RRUW_fake_script)()
-local function GGUT_fake_script() -- ExecuteButton.LocalScript 
+coroutine.wrap(GUOBZH_fake_script)()
+local function VDTE_fake_script() -- ExecuteButton.LocalScript 
 	local script = Instance.new('LocalScript', ExecuteButton)
 
 	
@@ -386,23 +386,23 @@ local function GGUT_fake_script() -- ExecuteButton.LocalScript
 		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
-coroutine.wrap(GGUT_fake_script)()
-local function IKLVWEM_fake_script() -- ClearButton.LocalScript 
+coroutine.wrap(VDTE_fake_script)()
+local function CTMJWUD_fake_script() -- ClearButton.LocalScript 
 	local script = Instance.new('LocalScript', ClearButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text = ""
 	end)
 end
-coroutine.wrap(IKLVWEM_fake_script)()
-local function XRIYC_fake_script() -- TextArea_2.LocalScript 
+coroutine.wrap(CTMJWUD_fake_script)()
+local function SVRY_fake_script() -- TextArea_2.LocalScript 
 	local script = Instance.new('LocalScript', TextArea_2)
 
 	task.wait(0.5)
 	script.Parent.Text = "print('Hello World!')"
 end
-coroutine.wrap(XRIYC_fake_script)()
-local function TVGCOF_fake_script() -- NumLines.LocalScript 
+coroutine.wrap(SVRY_fake_script)()
+local function EISWYDQ_fake_script() -- NumLines.LocalScript 
 	local script = Instance.new('LocalScript', NumLines)
 
 	local numberTemplate = script.Parent.NumberTemplate
@@ -428,8 +428,8 @@ local function TVGCOF_fake_script() -- NumLines.LocalScript
 		end
 	end)
 end
-coroutine.wrap(TVGCOF_fake_script)()
-local function SJBS_fake_script() -- Main.Dragify 
+coroutine.wrap(EISWYDQ_fake_script)()
+local function SCYLLDG_fake_script() -- Main.Dragify 
 	local script = Instance.new('LocalScript', Main)
 
 	local UIS = game:GetService("UserInputService")
@@ -470,8 +470,8 @@ local function SJBS_fake_script() -- Main.Dragify
 	
 	dragify(script.Parent)
 end
-coroutine.wrap(SJBS_fake_script)()
-local function DWES_fake_script() -- CloseButton_2.LocalScript 
+coroutine.wrap(SCYLLDG_fake_script)()
+local function ZGAV_fake_script() -- CloseButton_2.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton_2)
 
 	script.Parent.MouseEnter:Connect(function()
@@ -487,8 +487,8 @@ local function DWES_fake_script() -- CloseButton_2.LocalScript
 		script.Parent.Parent.Parent.Visible = false
 	end)
 end
-coroutine.wrap(DWES_fake_script)()
-local function VPOYG_fake_script() -- Text.LocalScript 
+coroutine.wrap(ZGAV_fake_script)()
+local function YADQ_fake_script() -- Text.LocalScript 
 	local script = Instance.new('LocalScript', Text)
 
 	local ls = game:GetService("LogService")
@@ -500,12 +500,12 @@ local function VPOYG_fake_script() -- Text.LocalScript
 		local text = textbox.Text
 		local addon = message
 		if msgtype == Enum.MessageType.MessageError then
-			addon = "<font color='rgb(221,18,12)'>"..addon.."</font>"
+			addon = `<font color="#F03030">`..addon.."</font>"
 		elseif msgtype == Enum.MessageType.MessageWarning then
-			addon = "<font color='rgb(235,146,26)'>"..addon.."</font>"
+			addon = `<font color="#EB631A">`..addon.."</font>"
 		end
 		
 		textbox.Text = text..`\n{addon}`
 	end)
 end
-coroutine.wrap(VPOYG_fake_script)()
+coroutine.wrap(YADQ_fake_script)()
