@@ -40,9 +40,9 @@ function ezDecomp.Decompile(mod)
 
 		for i, v in pairs(table) do
 			if type(v) == "table" then
-				AddToRet("	" .. DecompTable(v, i))
+				AddToRet("  " .. DecompTable(v, i))
 			else
-				AddToRet("	" .. DecompMain(v, i))
+				AddToRet("  " .. DecompMain(v, i))
 			end
 		end
 
