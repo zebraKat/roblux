@@ -3,7 +3,7 @@
 
 -- Instances:
 
-local ScreenGui = Instance.new("ScreenGui")
+local Flounder = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local TopBar = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
@@ -28,6 +28,7 @@ local TextArea_2 = Instance.new("TextBox")
 local NumLines = Instance.new("Frame")
 local UIListLayout_3 = Instance.new("UIListLayout")
 local NumberTemplate = Instance.new("TextLabel")
+local Number = Instance.new("TextLabel")
 local UIListLayout_4 = Instance.new("UIListLayout")
 local FilePopup = Instance.new("Frame")
 local UIListLayout_5 = Instance.new("UIListLayout")
@@ -39,20 +40,24 @@ local Title_2 = Instance.new("TextLabel")
 local UIPadding_4 = Instance.new("UIPadding")
 local CloseButton_2 = Instance.new("TextButton")
 local UIPadding_5 = Instance.new("UIPadding")
+local ClearButton_2 = Instance.new("TextButton")
+local UIPadding_6 = Instance.new("UIPadding")
 local ScrollingFrame = Instance.new("ScrollingFrame")
 local Text = Instance.new("TextLabel")
 
 --Properties:
 
-ScreenGui.Parent = game.CoreGui
+Flounder.Name = "Flounder"
+Flounder.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 Main.Name = "Main"
-Main.Parent = ScreenGui
+Main.Parent = Flounder
 Main.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
 Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Main.BorderSizePixel = 0
 Main.ClipsDescendants = true
-Main.Size = UDim2.new(0, 324, 0, 359)
+Main.Position = UDim2.new(0, 359, 0, 57)
+Main.Size = UDim2.new(0, 560, 0, 359)
 
 TopBar.Name = "TopBar"
 TopBar.Parent = Main
@@ -84,7 +89,7 @@ CloseButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 CloseButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 CloseButton.BorderSizePixel = 0
 CloseButton.Position = UDim2.new(1, 0, 0, 0)
-CloseButton.Size = UDim2.new(0, 23, 1, 0)
+CloseButton.Size = UDim2.new(0.0432098769, 23, 1, 0)
 CloseButton.AutoButtonColor = false
 CloseButton.Font = Enum.Font.SourceSans
 CloseButton.Text = "x"
@@ -179,7 +184,7 @@ UIListLayout_2.Parent = Holder_2
 UIListLayout_2.FillDirection = Enum.FillDirection.Horizontal
 UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Center
-UIListLayout_2.Padding = UDim.new(0.0599999987, 0)
+UIListLayout_2.Padding = UDim.new(0, 5)
 
 ExecuteButton.Name = "ExecuteButton"
 ExecuteButton.Parent = Holder_2
@@ -237,7 +242,7 @@ TextArea_2.SizeConstraint = Enum.SizeConstraint.RelativeXX
 TextArea_2.ClearTextOnFocus = false
 TextArea_2.Font = Enum.Font.Code
 TextArea_2.MultiLine = true
-TextArea_2.Text = ""
+TextArea_2.Text = "print('Hello World!')"
 TextArea_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextArea_2.TextSize = 15.000
 TextArea_2.TextXAlignment = Enum.TextXAlignment.Left
@@ -250,7 +255,7 @@ NumLines.BorderColor3 = Color3.fromRGB(0, 0, 0)
 NumLines.BorderSizePixel = 0
 NumLines.ClipsDescendants = true
 NumLines.Position = UDim2.new(0, 0, -0.00778210117, 0)
-NumLines.Size = UDim2.new(0, 20, 25555, 0)
+NumLines.Size = UDim2.new(0, 30, 25555, 0)
 NumLines.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UIListLayout_3.Parent = NumLines
@@ -269,6 +274,18 @@ NumberTemplate.Font = Enum.Font.SourceSans
 NumberTemplate.Text = "1"
 NumberTemplate.TextColor3 = Color3.fromRGB(111, 111, 111)
 NumberTemplate.TextSize = 15.000
+
+Number.Name = "Number"
+Number.Parent = NumLines
+Number.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Number.BackgroundTransparency = 1.000
+Number.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Number.BorderSizePixel = 0
+Number.Size = UDim2.new(1, 0, 0, 15)
+Number.Font = Enum.Font.SourceSans
+Number.Text = "1"
+Number.TextColor3 = Color3.fromRGB(111, 111, 111)
+Number.TextSize = 15.000
 
 UIListLayout_4.Parent = TextArea
 UIListLayout_4.FillDirection = Enum.FillDirection.Horizontal
@@ -312,12 +329,13 @@ OpenFileButton.TextColor3 = Color3.fromRGB(253, 253, 253)
 OpenFileButton.TextSize = 13.000
 
 ConsoleMain.Name = "ConsoleMain"
-ConsoleMain.Parent = ScreenGui
+ConsoleMain.Parent = Flounder
 ConsoleMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
 ConsoleMain.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ConsoleMain.BorderSizePixel = 0
-ConsoleMain.Position = UDim2.new(0.322287202, 0, 0.25555557, 0)
-ConsoleMain.Size = UDim2.new(0, 546, 0, 246)
+ConsoleMain.Draggable = true
+ConsoleMain.Position = UDim2.new(0, 654, 0, 142)
+ConsoleMain.Size = UDim2.new(0, 546, 0, 303)
 ConsoleMain.Visible = false
 
 TopBar_2.Name = "TopBar"
@@ -350,7 +368,7 @@ CloseButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 CloseButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 CloseButton_2.BorderSizePixel = 0
 CloseButton_2.Position = UDim2.new(1, 0, 0, 0)
-CloseButton_2.Size = UDim2.new(0, 23, 1, 0)
+CloseButton_2.Size = UDim2.new(0.025641026, 23, 1, 0)
 CloseButton_2.AutoButtonColor = false
 CloseButton_2.Font = Enum.Font.SourceSans
 CloseButton_2.Text = "x"
@@ -361,6 +379,25 @@ CloseButton_2.TextWrapped = true
 
 UIPadding_5.Parent = CloseButton_2
 UIPadding_5.PaddingBottom = UDim.new(0, 3)
+
+ClearButton_2.Name = "ClearButton"
+ClearButton_2.Parent = TopBar_2
+ClearButton_2.AnchorPoint = Vector2.new(1, 0)
+ClearButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ClearButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ClearButton_2.BorderSizePixel = 0
+ClearButton_2.Position = UDim2.new(1, -37, 0, 0)
+ClearButton_2.Size = UDim2.new(0.025641026, 23, 1, 0)
+ClearButton_2.AutoButtonColor = false
+ClearButton_2.Font = Enum.Font.SourceSans
+ClearButton_2.Text = "empty"
+ClearButton_2.TextColor3 = Color3.fromRGB(115, 115, 115)
+ClearButton_2.TextScaled = true
+ClearButton_2.TextSize = 14.000
+ClearButton_2.TextWrapped = true
+
+UIPadding_6.Parent = ClearButton_2
+UIPadding_6.PaddingBottom = UDim.new(0, 3)
 
 ScrollingFrame.Parent = ConsoleMain
 ScrollingFrame.Active = true
@@ -376,15 +413,15 @@ ScrollingFrame.ScrollBarThickness = 5
 ScrollingFrame.TopImage = ""
 
 Text.Name = "Text"
-Text.Parent = ScrollingFrame
 Text.RichText = true
+Text.Parent = ScrollingFrame
 Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Text.BackgroundTransparency = 1.000
 Text.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Text.BorderSizePixel = 0
 Text.Size = UDim2.new(1, 0, 1, 0)
 Text.Font = Enum.Font.Arial
-Text.Text = "Console"
+Text.Text = "thanks for using Flounder v1"
 Text.TextColor3 = Color3.fromRGB(255, 255, 255)
 Text.TextSize = 14.000
 Text.TextXAlignment = Enum.TextXAlignment.Left
@@ -392,26 +429,17 @@ Text.TextYAlignment = Enum.TextYAlignment.Top
 
 -- Scripts:
 
-local function WTYWDLW_fake_script() -- CloseButton.LocalScript 
+local function PDQE_fake_script() -- CloseButton.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton)
 
-	script.Parent.MouseEnter:Connect(function()
-		script.Parent.BackgroundColor3 = Color3.new(1,0,0)
-	end)
-	script.Parent.MouseLeave:Connect(function()
-		script.Parent.BackgroundColor3 = Color3.new(1,1,1)
-	end)
-	script.Parent.MouseButton1Down:Connect(function()
-		script.Parent.BackgroundColor3 = Color3.new(0.60,0,0)
-	end)
-	script.Parent.MouseButton1Click:Connect(function()
-		script.Parent.Parent.Parent:Destroy()
-	end)
+	
 end
-coroutine.wrap(WTYWDLW_fake_script)()
-local function AFQWSQY_fake_script() -- TopBar.CustomDrag 
+coroutine.wrap(PDQE_fake_script)()
+local function RLXIKUK_fake_script() -- TopBar.LocalScript 
 	local script = Instance.new('LocalScript', TopBar)
 
+	
+	
 	local topbar = script.Parent
 	local mainPanel = topbar.Parent
 	local plr = game.Players.LocalPlayer
@@ -456,32 +484,20 @@ local function AFQWSQY_fake_script() -- TopBar.CustomDrag
 	end)
 	
 end
-coroutine.wrap(AFQWSQY_fake_script)()
-local function AEXOA_fake_script() -- FileButton.LocalScript 
+coroutine.wrap(RLXIKUK_fake_script)()
+local function ELIJWG_fake_script() -- FileButton.LocalScript 
 	local script = Instance.new('LocalScript', FileButton)
 
-	local popup = script.Parent.Parent.Parent.Parent.FilePopup
-	local isOpen = false
 	
-	script.Parent.MouseButton1Click:Connect(function()
-		isOpen = not isOpen
-		if isOpen then
-			popup.Visible = true
-			return
-		end
-		popup.Visible = false
-	end)
 end
-coroutine.wrap(AEXOA_fake_script)()
-local function LVBY_fake_script() -- ConsoleButton.LocalScript 
+coroutine.wrap(ELIJWG_fake_script)()
+local function PDDZYN_fake_script() -- ConsoleButton.LocalScript 
 	local script = Instance.new('LocalScript', ConsoleButton)
 
-	script.Parent.MouseButton1Click:Connect(function()
-		script.Parent.Parent.Parent.Parent.Parent.ConsoleMain.Visible = true
-	end)
+	
 end
-coroutine.wrap(LVBY_fake_script)()
-local function QGNV_fake_script() -- ExecuteButton.LocalScript 
+coroutine.wrap(PDDZYN_fake_script)()
+local function FQGBO_fake_script() -- ExecuteButton.LocalScript 
 	local script = Instance.new('LocalScript', ExecuteButton)
 
 	
@@ -492,52 +508,35 @@ local function QGNV_fake_script() -- ExecuteButton.LocalScript
 		vluau(script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text,env)()
 	end)
 end
-coroutine.wrap(QGNV_fake_script)()
-local function PNHVDGE_fake_script() -- ClearButton.LocalScript 
+coroutine.wrap(FQGBO_fake_script)()
+local function HMWO_fake_script() -- ClearButton.LocalScript 
 	local script = Instance.new('LocalScript', ClearButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent.Parent.TextArea.TextArea.Text = ""
 	end)
 end
-coroutine.wrap(PNHVDGE_fake_script)()
-local function CEHDJO_fake_script() -- TextArea_2.LocalScript 
+coroutine.wrap(HMWO_fake_script)()
+local function YJDR_fake_script() -- TextArea_2.LocalScript 
 	local script = Instance.new('LocalScript', TextArea_2)
 
+	local script = Instance.new('LocalScript', TextArea_2)
+	
 	task.wait(0.5)
 	script.Parent.Text = "print('Hello World!')"
 end
-coroutine.wrap(CEHDJO_fake_script)()
-local function MLSSF_fake_script() -- NumLines.LocalScript 
+coroutine.wrap(YJDR_fake_script)()
+local function MORF_fake_script() -- NumLines.LocalScript 
 	local script = Instance.new('LocalScript', NumLines)
 
-	local numberTemplate = script.Parent.NumberTemplate
-	local text = script.Parent.Parent.TextArea
 	
-	text.Changed:Connect(function(prop)
-		if prop == "Text" then
-			for i,v in script.Parent:GetChildren() do
-				if v.Name == "Number" then
-					v:Destroy()
-				end
-			end
-			
-			local split = string.split(text.Text,"\n")
-			local LineCount = table.maxn(split)
-			for i = 1, LineCount do
-				local clone = numberTemplate:Clone()
-				clone.Text = i
-				clone.Parent = script.Parent
-				clone.Visible = true
-				clone.Name = "Number"
-			end
-		end
-	end)
 end
-coroutine.wrap(MLSSF_fake_script)()
-local function XNKCKL_fake_script() -- CloseButton_2.LocalScript 
+coroutine.wrap(MORF_fake_script)()
+local function ZPHVKOX_fake_script() -- CloseButton_2.LocalScript 
 	local script = Instance.new('LocalScript', CloseButton_2)
 
+	
+	
 	script.Parent.MouseEnter:Connect(function()
 		script.Parent.BackgroundColor3 = Color3.new(1,0,0)
 	end)
@@ -551,10 +550,12 @@ local function XNKCKL_fake_script() -- CloseButton_2.LocalScript
 		script.Parent.Parent.Parent.Visible = false
 	end)
 end
-coroutine.wrap(XNKCKL_fake_script)()
-local function PGWGEDM_fake_script() -- TopBar_2.CustomDrag 
+coroutine.wrap(ZPHVKOX_fake_script)()
+local function LKQSZTM_fake_script() -- TopBar_2.LocalScript 
 	local script = Instance.new('LocalScript', TopBar_2)
 
+	local script = Instance.new('LocalScript', TopBar_2)
+	
 	local topbar = script.Parent
 	local mainPanel = topbar.Parent
 	local plr = game.Players.LocalPlayer
@@ -599,10 +600,19 @@ local function PGWGEDM_fake_script() -- TopBar_2.CustomDrag
 	end)
 	
 end
-coroutine.wrap(PGWGEDM_fake_script)()
-local function HBLCL_fake_script() -- Text.LocalScript 
+coroutine.wrap(LKQSZTM_fake_script)()
+local function ZGPJSH_fake_script() -- ClearButton_2.LocalScript 
+	local script = Instance.new('LocalScript', ClearButton_2)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Parent.ScrollingFrame.Text.Text = " Flounder V1 "
+	end)
+end
+coroutine.wrap(ZGPJSH_fake_script)()
+local function JCPJYH_fake_script() -- Text.LocalScript 
 	local script = Instance.new('LocalScript', Text)
 
+	
 	local ls = game:GetService("LogService")
 	local textbox = script.Parent
 	
@@ -616,21 +626,58 @@ local function HBLCL_fake_script() -- Text.LocalScript
 		elseif msgtype == Enum.MessageType.MessageWarning then
 			addon = `<font color="#EB631A">`..addon.."</font>"
 		end
-		
+	
 		textbox.Text = text..`\n{addon}`
 	end)
 end
-coroutine.wrap(HBLCL_fake_script)()
-local function TQKIMOT_fake_script() -- ConsoleMain.LocalScript 
+coroutine.wrap(JCPJYH_fake_script)()
+local function MVTY_fake_script() -- ConsoleMain.LocalScript 
 	local script = Instance.new('LocalScript', ConsoleMain)
 
-	script.Parent.Draggable = true
+	local script = Instance.new('LocalScript', TopBar_2)
+	
+	local topbar = script.Parent
+	local mainPanel = topbar.Parent
+	local plr = game.Players.LocalPlayer
+	local mouse = plr:GetMouse()
+	
+	local isDown:boolean = false
+	local isOver:boolean = false
+	local downPos  
+	local initialPanelPos
+	
+	function multiplyUdim2(udim2:UDim2,num)
+		return UDim2.fromOffset(udim2.X.Offset * num,udim2.Y.Offset * num)
+	end
+	
+	topbar.MouseEnter:Connect(function()
+		isOver = true
+	end)
+	
+	topbar.MouseLeave:Connect(function()
+		isOver = false
+	end)
+	
+	mouse.Button1Down:Connect(function()
+		isDown = true
+		if isOver then
+			downPos = {mouse.X, mouse.Y}
+			initialPanelPos = mainPanel.Position -- Capture the initial panel position
+		end
+	end)
+	
+	mouse.Button1Up:Connect(function()
+		isDown = false
+	end)
+	
+	mouse.Move:Connect(function() 
+		if isOver and isDown then
+			-- Adjust the panel position relative to its initial position
+			local deltaX = mouse.X - downPos[1]
+			local deltaY = mouse.Y - downPos[2]
+			mainPanel.Position = UDim2.fromOffset(initialPanelPos.X.Offset + deltaX, initialPanelPos.Y.Offset + deltaY)
+		end
+	end)
+	
 end
-coroutine.wrap(TQKIMOT_fake_script)()
-local function GWDIE_fake_script() -- ScreenGui.Script 
-	local script = Instance.new('Script', ScreenGui)
-
-	--TODO ADD FILE SAVING AND OPENING TO SAVE USE if writefileExploit() then writefileCooldown("name.txt", INSIDE) end
-	-- TODO TO CHECK IF FILE EXIST DO  readfile(filename) ???
-end
-coroutine.wrap(GWDIE_fake_script)()
+coroutine.wrap(MVTY_fake_script)()
