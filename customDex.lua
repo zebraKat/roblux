@@ -1,3 +1,6 @@
+local vluau = loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/vluau/loader.lua"))()
+
+
 -- https://github.com/LorekeeperZinnia/Dex
 
 --[[
@@ -4214,7 +4217,7 @@ return search]==]
 			local PreviousScr = nil
 
 			ScriptViewer.ViewScript = function(scr)
-				local source = easyDecomp.Decompile(scr)
+				local source = vluau("string.dump(scr)")
 				codeFrame:SetText(source:gsub("\0", "\\0")) -- Fix stupid breaking script viewer
 				window:Show()
 			end
