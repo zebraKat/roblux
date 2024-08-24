@@ -1,0 +1,174 @@
+local runservice = game:GetService("RunService")
+local userinputservice = game:GetService("UserInputService")
+local playerService = game:GetService("Players")
+
+local camera = workspace.CurrentCamera
+local player = playerService.LocalPlayer
+
+local toggleAvoidPlayerBind:Enum.KeyCode = Enum.KeyCode.B
+local toggleRadiusChanging:Enum.KeyCode = Enum.KeyCode.C
+local toggleLockPosition:Enum.KeyCode = Enum.KeyCode.F
+local toggleHelp:Enum.KeyCode = Enum.KeyCode.H
+
+local increaseIncrementBind:Enum.KeyCode = Enum.KeyCode.J
+local decreaseIncrementBind:Enum.KeyCode = Enum.KeyCode.K
+
+local radiusChangingActive:boolean = true
+local aimbotPositionChanging:boolean = true
+
+local playersToAvoid:{[Player]: boolean} = {}
+
+local radius = 300
+local damping:number? = 20*.01
+local increment = 5
+
+local function init()
+	local playerGui = player:WaitForChild("PlayerGui")
+	local screengui = Instance.new("ScreenGui") do
+		screengui.Parent = playerGui
+		screengui.IgnoreGuiInset = true
+		screengui.ResetOnSpawn = false
+	end
+	
+	local help = Instance.new("TextLabel") do
+		help.Text = `to avoid a user, have them inside the circle and press [{toggleAvoidPlayerBind.Name}]\nto disable changing the radius, press [{toggleRadiusChanging.Name}]\nto change the increment of the radius changing, press [{increaseIncrementBind.Name}] to raise or press [{decreaseIncrementBind.Name}] to reduce.\nto stop the lock from changing position, press [{toggleLockPosition.Name}]\npress [{toggleHelp.Name}] to toggle the visibility of this prompt.`
+		
+		help.Position = UDim2.fromScale(.5, .8)
+		help.Size = UDim2.fromScale(.2, .1)
+		
+		help.Parent = screengui
+		help.AnchorPoint = Vector2.new(0.5, 0.5)
+		
+		help.TextColor3 = Color3.new(1, 1, 1)
+		help.BackgroundColor3 = Color3.new(0, 0, 0)
+		help.TextStrokeColor3 = Color3.new(0, 0, 0)
+		
+		help.Font = Enum.Font.Code
+		
+		help.TextScaled = true
+		
+		help.BackgroundTransparency = 1
+		help.TextStrokeTransparency = 0
+		help.AutomaticSize = Enum.AutomaticSize.X
+	end
+	local cursor = Instance.new("Frame") do
+		cursor.Parent = screengui
+		cursor.Size = UDim2.fromOffset(radius, radius)
+		cursor.AnchorPoint = Vector2.new(.5, .5)
+		cursor.Position = UDim2.fromScale(0,0)
+		cursor.BackgroundColor3 = Color3.new(1, 1, 1)
+		cursor.BackgroundTransparency = .8
+	end
+	local uicorner = Instance.new("UICorner") do
+		uicorner.Parent = cursor
+		uicorner.CornerRadius = UDim.new(1, 0)
+	end
+	local uistroke = Instance.new("UIStroke") do
+		uistroke.Parent = cursor
+		uistroke.Thickness = 1
+		uistroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	end
+	
+	local function getNetworkLatency()
+		return player:GetNetworkPing()
+	end
+	
+	local function predictNextStepOfPart(part:Part):Vector3
+		return part.Position + (part.AssemblyLinearVelocity + (Vector3.one * getNetworkLatency()) / math.max((part.Position - player.Character.PrimaryPart.Position).Magnitude*10, 1))
+	end
+	
+	local function getPlayersInLockRadius(): {{Player & number}}
+		local players:{{Player & number}} = {}
+		
+		for _, otherPlayer:Player in playerService:GetPlayers() do
+			if otherPlayer == player then continue end
+			
+			local enemyCharacter = otherPlayer.Character
+			if not enemyCharacter or (enemyCharacter and not enemyCharacter.PrimaryPart) then continue end
+
+			local positionOnScreen:Vector3, onScreen:boolean = camera:WorldToScreenPoint(enemyCharacter.PrimaryPart.Position)
+			local distanceFromLock = (Vector2.new(positionOnScreen.X, positionOnScreen.Y) - Vector2.new(cursor.Position.X.Offset, cursor.Position.Y.Offset)).Magnitude
+
+			if not onScreen then continue end
+			if distanceFromLock <= radius then
+				table.insert(players, {otherPlayer, distanceFromLock})
+			end
+		end
+		
+		table.sort(players, function(list1: any, list2: any): boolean return list1[2] < list2[2] end)
+		
+		return players
+	end
+	
+	for _, otherPlayer:Player in playerService:GetPlayers() do
+		playersToAvoid[otherPlayer] = false
+	end
+	
+	runservice.Heartbeat:Connect( function(deltatime:number) 
+		local mousedata = userinputservice:GetMouseLocation()
+		
+		if aimbotPositionChanging == true then
+			cursor.Position = cursor.Position:Lerp(UDim2.fromOffset(mousedata.X, mousedata.Y), damping or deltatime)
+		end
+		
+		if radiusChangingActive == false then
+			if cursor.Size ~= UDim2.fromOffset(radius, radius) then
+				cursor.Size = UDim2.fromOffset(radius, radius)
+			end
+			player.CameraMaxZoomDistance = 128
+			player.CameraMinZoomDistance = 0.5
+		else
+			cursor.Size = cursor.Size:Lerp(UDim2.fromOffset(radius, radius), damping or deltatime)
+			if player.Character and player.Character.PrimaryPart then
+				player.CameraMaxZoomDistance = (camera.CFrame.Position - player.Character.PrimaryPart.Position).Magnitude
+				player.CameraMinZoomDistance = player.CameraMaxZoomDistance-1
+			end
+		end
+		
+		local firstTarget = getPlayersInLockRadius()[1]
+		--print(firstTarget)
+		if not firstTarget or (firstTarget and not firstTarget[1]) then return end
+					
+		local enemyCharacter = firstTarget[1].Character
+		if not enemyCharacter or (enemyCharacter and not enemyCharacter.PrimaryPart) then return end
+		
+		camera.CFrame = CFrame.lookAt(camera.CFrame.Position, predictNextStepOfPart(enemyCharacter.PrimaryPart))
+	end)
+	
+	userinputservice.InputBegan:Connect( function(input: InputObject, gameProcessedEvent: boolean) 
+		if gameProcessedEvent == true then return end
+		
+		if input.KeyCode.Value == toggleAvoidPlayerBind.Value then
+			local targetPlayer = getPlayersInLockRadius()[1]
+			if not targetPlayer or (targetPlayer and not targetPlayer[1]) then return end
+			playersToAvoid[targetPlayer[1]] = not playersToAvoid[targetPlayer[1]]
+			
+		elseif input.KeyCode.Value == toggleRadiusChanging.Value then
+			radiusChangingActive = not radiusChangingActive
+			
+		elseif input.KeyCode.Value == toggleLockPosition.Value then
+			aimbotPositionChanging = not aimbotPositionChanging
+			
+		elseif input.KeyCode.Value == toggleHelp.Value then
+			help.Visible = not help.Visible
+			
+		elseif input.KeyCode.Value == decreaseIncrementBind.Value then
+			increment-=1
+			
+		elseif input.KeyCode.Value == increaseIncrementBind.Value then
+			increment+=1
+		end
+	end)
+	
+	userinputservice.InputChanged:Connect( function(input: InputObject, gameProcessedEvent: boolean)
+		if gameProcessedEvent == true then return end
+		
+		if input.UserInputType.Value == Enum.UserInputType.MouseWheel.Value and radiusChangingActive == true then
+			--print('mouse scrollde')
+			radius+=input.Position.Z*increment
+			radius = math.max(radius, 1)
+		end
+	end)
+end
+
+init()
