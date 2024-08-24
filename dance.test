@@ -160,6 +160,16 @@ cam = workspace.CurrentCamera
  
 running = {}
 popAnims = {
+ chainsaw = {
+        Title = "Chainsaw";
+        AnimationId = "rbxassetid://111406984923951";
+        Speed = 1;
+        Time = 0;
+        Weight = 1;
+        Loop = true;
+        R6 = false;
+        Priority = 2; --0, 1, 2, and 1000 are acceptable priorities
+    };
     armturbine = {
         Title = "Arm Turbine";
         AnimationId = "rbxassetid://259438880";
