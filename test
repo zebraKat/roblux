@@ -1,245 +1,516 @@
+-- Gui to Lua
+-- Version: 3.2
 
-getgenv = getgenv or function() return getfenv(2) end
-local Logger = {} -- Type = {LastCall=os.time(), CallsPerSec=number}
-local Limits = { -- How many times an instance can fire per second
-	BindableEvent = 3,
-	BindableFunction = 3,
-	RemoteFunction = 3,
-	RemoteEvent = 3
-}
-local vers = '0.0.1b'
-function keyF(a)
-	return typeof(a) == 'number' and ('[%d] = '):format(a) or ('[\'%s\'] = '):format(tostring(a))
-end
-function keyE(a, b)
-	if typeof(b):lower() == 'instance' then
-		return b.Name:gsub(' ', '_')
-	elseif typeof(b) == 'boolean' then return 'bool' .. tostring(a) elseif typeof(b) == 'string' then return 'str' .. tostring(a) elseif typeof(b) == 'number' then return 'num' .. tostring(a) elseif typeof(b) == 'table' then return 'tbl' .. tostring(a) else return typeof(b) .. tostring(a) end
-end
-local BootlegDebug = {}
-local Output = function(inp)
-	local newRemote = script.Parent.LeftPanel.LogList.RemoteTemplate:Clone()
-	newRemote.Parent = script.Parent.LeftPanel.LogList
-	newRemote.Visible = true
-	newRemote.Name = "NewFire"
-	newRemote.Button.MouseButton1Click:Connect(function()
-		script.Parent.RightPanel.CodeBox.TextBox.Text = inp
-	end)
-end
-function BootlegDebug.getinfo(thread)
-	local CurrentLine = tonumber(debug.info(thread, 'l'))
-	local Source = debug.info(thread, 's')
-	local name = debug.info(thread, 'n')
-	local numparams, isvrg = debug.info(thread, 'a')
-	if #name == 0 then name = nil end
-	local a, b = debug.info(thread, 'a')
-	return {
-		['currentline'] = CurrentLine,
-		['Source'] = Source,
-		['name'] = tostring(name),
-		['numparams'] = tonumber(numparams),
-		['is_vararg'] = isvrg and 1 or 0,
-		['short_src'] = tostring(Source:sub(1, 60))
+-- Instances:
+
+local SimpleSpy2 = Instance.new("ScreenGui")
+local Background = Instance.new("Frame")
+local LeftPanel = Instance.new("Frame")
+local LogList = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local RemoteTemplate = Instance.new("Frame")
+local ColorBar = Instance.new("Frame")
+local Text = Instance.new("TextLabel")
+local Button = Instance.new("TextButton")
+local RightPanel = Instance.new("Frame")
+local CodeBox = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local FunctionTemplate = Instance.new("Frame")
+local ColorBar_2 = Instance.new("Frame")
+local Text_2 = Instance.new("TextLabel")
+local Button_2 = Instance.new("TextButton")
+local TopBar = Instance.new("Frame")
+local Simple = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+local ImageLabel = Instance.new("ImageLabel")
+local MaximizeButton = Instance.new("TextButton")
+local ImageLabel_2 = Instance.new("ImageLabel")
+local MinimizeButton = Instance.new("TextButton")
+local ImageLabel_3 = Instance.new("ImageLabel")
+
+--Properties:
+
+SimpleSpy2.Name = "SimpleSpy2"
+SimpleSpy2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+SimpleSpy2.ResetOnSpawn = false
+
+Background.Name = "Background"
+Background.Parent = SimpleSpy2
+Background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Background.BackgroundTransparency = 1.000
+Background.Position = UDim2.new(0, 500, 0, 200)
+Background.Size = UDim2.new(0, 450, 0, 268)
+
+LeftPanel.Name = "LeftPanel"
+LeftPanel.Parent = Background
+LeftPanel.BackgroundColor3 = Color3.fromRGB(53, 52, 55)
+LeftPanel.BorderSizePixel = 0
+LeftPanel.Position = UDim2.new(0, 0, 0, 19)
+LeftPanel.Size = UDim2.new(0, 131, 0, 249)
+
+LogList.Name = "LogList"
+LogList.Parent = LeftPanel
+LogList.Active = true
+LogList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+LogList.BackgroundTransparency = 1.000
+LogList.BorderSizePixel = 0
+LogList.Position = UDim2.new(0, 0, 0, 9)
+LogList.Size = UDim2.new(0, 131, 0, 232)
+LogList.CanvasSize = UDim2.new(0, 0, 0, 0)
+LogList.ScrollBarThickness = 4
+
+UIListLayout.Parent = LogList
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+RemoteTemplate.Name = "RemoteTemplate"
+RemoteTemplate.Parent = LogList
+RemoteTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RemoteTemplate.BackgroundTransparency = 1.000
+RemoteTemplate.Size = UDim2.new(0, 117, 0, 27)
+RemoteTemplate.Visible = false
+
+ColorBar.Name = "ColorBar"
+ColorBar.Parent = RemoteTemplate
+ColorBar.BackgroundColor3 = Color3.fromRGB(255, 242, 0)
+ColorBar.BorderSizePixel = 0
+ColorBar.Position = UDim2.new(0, 0, 0, 1)
+ColorBar.Size = UDim2.new(0, 7, 0, 18)
+ColorBar.ZIndex = 2
+
+Text.Name = "Text"
+Text.Parent = RemoteTemplate
+Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Text.BackgroundTransparency = 1.000
+Text.Position = UDim2.new(0, 12, 0, 1)
+Text.Size = UDim2.new(0, 105, 0, 18)
+Text.ZIndex = 2
+Text.Font = Enum.Font.SourceSans
+Text.Text = "TEXT"
+Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+Text.TextSize = 14.000
+Text.TextWrapped = true
+Text.TextXAlignment = Enum.TextXAlignment.Left
+
+Button.Name = "Button"
+Button.Parent = RemoteTemplate
+Button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Button.BackgroundTransparency = 0.750
+Button.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Button.Position = UDim2.new(0, 0, 0, 1)
+Button.Size = UDim2.new(0, 117, 0, 18)
+Button.AutoButtonColor = false
+Button.Font = Enum.Font.SourceSans
+Button.Text = ""
+Button.TextColor3 = Color3.fromRGB(0, 0, 0)
+Button.TextSize = 14.000
+
+RightPanel.Name = "RightPanel"
+RightPanel.Parent = Background
+RightPanel.BackgroundColor3 = Color3.fromRGB(37, 36, 38)
+RightPanel.BorderSizePixel = 0
+RightPanel.Position = UDim2.new(0, 131, 0, 19)
+RightPanel.Size = UDim2.new(0, 319, 0, 249)
+
+CodeBox.Name = "CodeBox"
+CodeBox.Parent = RightPanel
+CodeBox.BackgroundColor3 = Color3.fromRGB(20, 18, 20)
+CodeBox.BorderSizePixel = 0
+CodeBox.Size = UDim2.new(0, 319, 0, 119)
+
+TextBox.Parent = CodeBox
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.BackgroundTransparency = 1.000
+TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Size = UDim2.new(1, 0, 1, 0)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextSize = 14.000
+TextBox.TextXAlignment = Enum.TextXAlignment.Left
+TextBox.TextYAlignment = Enum.TextYAlignment.Top
+
+ScrollingFrame.Parent = RightPanel
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.BackgroundTransparency = 1.000
+ScrollingFrame.Position = UDim2.new(0, 0, 0.5, 0)
+ScrollingFrame.Size = UDim2.new(1, 0, 0.5, -9)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+ScrollingFrame.ScrollBarThickness = 4
+
+UIGridLayout.Parent = ScrollingFrame
+UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 0)
+UIGridLayout.CellSize = UDim2.new(0, 94, 0, 27)
+
+FunctionTemplate.Name = "FunctionTemplate"
+FunctionTemplate.Parent = ScrollingFrame
+FunctionTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FunctionTemplate.BackgroundTransparency = 1.000
+FunctionTemplate.Size = UDim2.new(0, 117, 0, 23)
+
+ColorBar_2.Name = "ColorBar"
+ColorBar_2.Parent = FunctionTemplate
+ColorBar_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ColorBar_2.BorderSizePixel = 0
+ColorBar_2.Position = UDim2.new(0, 7, 0, 10)
+ColorBar_2.Size = UDim2.new(0, 7, 0, 18)
+ColorBar_2.ZIndex = 3
+
+Text_2.Name = "Text"
+Text_2.Parent = FunctionTemplate
+Text_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Text_2.BackgroundTransparency = 1.000
+Text_2.Position = UDim2.new(0, 19, 0, 10)
+Text_2.Size = UDim2.new(0, 69, 0, 18)
+Text_2.ZIndex = 2
+Text_2.Font = Enum.Font.SourceSans
+Text_2.Text = "TEXT"
+Text_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Text_2.TextSize = 14.000
+Text_2.TextStrokeColor3 = Color3.fromRGB(36, 35, 38)
+Text_2.TextWrapped = true
+Text_2.TextXAlignment = Enum.TextXAlignment.Left
+
+Button_2.Name = "Button"
+Button_2.Parent = FunctionTemplate
+Button_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Button_2.BackgroundTransparency = 0.700
+Button_2.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Button_2.Position = UDim2.new(0, 7, 0, 10)
+Button_2.Size = UDim2.new(0, 80, 0, 18)
+Button_2.AutoButtonColor = false
+Button_2.Font = Enum.Font.SourceSans
+Button_2.Text = ""
+Button_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+Button_2.TextSize = 14.000
+
+TopBar.Name = "TopBar"
+TopBar.Parent = Background
+TopBar.BackgroundColor3 = Color3.fromRGB(37, 35, 38)
+TopBar.BorderSizePixel = 0
+TopBar.Size = UDim2.new(0, 450, 0, 19)
+
+Simple.Name = "Simple"
+Simple.Parent = TopBar
+Simple.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Simple.BackgroundTransparency = 1.000
+Simple.Position = UDim2.new(0, 5, 0, 0)
+Simple.Size = UDim2.new(0, 57, 0, 18)
+Simple.AutoButtonColor = false
+Simple.Font = Enum.Font.SourceSansBold
+Simple.Text = "SimpleSpy"
+Simple.TextColor3 = Color3.fromRGB(255, 255, 255)
+Simple.TextSize = 14.000
+Simple.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = TopBar
+CloseButton.BackgroundColor3 = Color3.fromRGB(36, 35, 38)
+CloseButton.BorderSizePixel = 0
+CloseButton.Position = UDim2.new(1, -19, 0, 0)
+CloseButton.Size = UDim2.new(0, 19, 0, 19)
+CloseButton.Font = Enum.Font.SourceSans
+CloseButton.Text = ""
+CloseButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+CloseButton.TextSize = 14.000
+
+ImageLabel.Parent = CloseButton
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.Position = UDim2.new(0, 5, 0, 5)
+ImageLabel.Size = UDim2.new(0, 9, 0, 9)
+ImageLabel.Image = "http://www.roblox.com/asset/?id=5597086202"
+
+MaximizeButton.Name = "MaximizeButton"
+MaximizeButton.Parent = TopBar
+MaximizeButton.BackgroundColor3 = Color3.fromRGB(36, 35, 38)
+MaximizeButton.BorderSizePixel = 0
+MaximizeButton.Position = UDim2.new(1, -38, 0, 0)
+MaximizeButton.Size = UDim2.new(0, 19, 0, 19)
+MaximizeButton.Font = Enum.Font.SourceSans
+MaximizeButton.Text = ""
+MaximizeButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+MaximizeButton.TextSize = 14.000
+
+ImageLabel_2.Parent = MaximizeButton
+ImageLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel_2.BackgroundTransparency = 1.000
+ImageLabel_2.Position = UDim2.new(0, 5, 0, 5)
+ImageLabel_2.Size = UDim2.new(0, 9, 0, 9)
+ImageLabel_2.Image = "http://www.roblox.com/asset/?id=5597108117"
+
+MinimizeButton.Name = "MinimizeButton"
+MinimizeButton.Parent = TopBar
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(36, 35, 38)
+MinimizeButton.BorderSizePixel = 0
+MinimizeButton.Position = UDim2.new(1, -57, 0, 0)
+MinimizeButton.Size = UDim2.new(0, 19, 0, 19)
+MinimizeButton.Font = Enum.Font.SourceSans
+MinimizeButton.Text = ""
+MinimizeButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+MinimizeButton.TextSize = 14.000
+
+ImageLabel_3.Parent = MinimizeButton
+ImageLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel_3.BackgroundTransparency = 1.000
+ImageLabel_3.Position = UDim2.new(0, 5, 0, 5)
+ImageLabel_3.Size = UDim2.new(0, 9, 0, 9)
+ImageLabel_3.Image = "http://www.roblox.com/asset/?id=5597105827"
+
+-- Scripts:
+
+local function WPFRTG_fake_script() -- Background.LocalScript 
+	local script = Instance.new('LocalScript', Background)
+
+	
+	getgenv = getgenv or function() return getfenv(2) end
+	local Logger = {} -- Type = {LastCall=os.time(), CallsPerSec=number}
+	local Limits = { -- How many times an instance can fire per second
+		BindableEvent = 3,
+		BindableFunction = 3,
+		RemoteFunction = 3,
+		RemoteEvent = 3
 	}
-end
-function GetFullName(instance)
-	local p = instance
-	local lo = {}
-	while (p ~= game and p.Parent ~= nil) do
-		table.insert(lo, p)
-		p = p.Parent
+	local vers = '0.0.1b'
+	function keyF(a)
+		return typeof(a) == 'number' and ('[%d] = '):format(a) or ('[\'%s\'] = '):format(tostring(a))
 	end
-	local fullName
-	if #lo == 0 then
-		return "nil --[[ PARENTED TO NIL OR DESTROYED ]]"
+	function keyE(a, b)
+		if typeof(b):lower() == 'instance' then
+			return b.Name:gsub(' ', '_')
+		elseif typeof(b) == 'boolean' then return 'bool' .. tostring(a) elseif typeof(b) == 'string' then return 'str' .. tostring(a) elseif typeof(b) == 'number' then return 'num' .. tostring(a) elseif typeof(b) == 'table' then return 'tbl' .. tostring(a) else return typeof(b) .. tostring(a) end
 	end
-	if lo[#lo].ClassName ~= "Workspace" then
-		fullName = 'game:GetService("' .. lo[#lo].ClassName .. '")'
-	else
-		fullName = "workspace"
+	local BootlegDebug = {}
+	local Output = function(inp)
+		local newRemote = script.Parent.LeftPanel.LogList.RemoteTemplate:Clone()
+		newRemote.Parent = script.Parent.LeftPanel.LogList
+		newRemote.Visible = true
+		newRemote.Name = "NewFire"
+		newRemote.Button.MouseButton1Click:Connect(function()
+			script.Parent.RightPanel.CodeBox.TextBox.Text = inp
+		end)
 	end
-	for i = #lo - 1, 1, -1 do
-		fullName = fullName .. ':FindFirstChild("' .. lo[i].Name .. '")'
+	function BootlegDebug.getinfo(thread)
+		local CurrentLine = tonumber(debug.info(thread, 'l'))
+		local Source = debug.info(thread, 's')
+		local name = debug.info(thread, 'n')
+		local numparams, isvrg = debug.info(thread, 'a')
+		if #name == 0 then name = nil end
+		local a, b = debug.info(thread, 'a')
+		return {
+			['currentline'] = CurrentLine,
+			['Source'] = Source,
+			['name'] = tostring(name),
+			['numparams'] = tonumber(numparams),
+			['is_vararg'] = isvrg and 1 or 0,
+			['short_src'] = tostring(Source:sub(1, 60))
+		}
 	end
-	return fullName
-end
-function tableloop(tbl, indent, equal, meta)
-	meta = meta or 0
-	indent = indent or 0
-	local result = (not equal and string.rep('  ', indent) or '') .. '{'
-	equal = false
-	if typeof(tbl) ~= 'table' then return Handle(tbl, indent) end
-	local _AM = 0
-	for key, value in pairs(tbl) do
-		_AM = _AM + 1
-		if typeof(value) == 'table' then
-			if getmetatable(value) then
-				result = result .. string.rep('  ', indent) .. 'local meta' .. (meta ~= 0 and tostring(meta) or '') .. ' = ' .. tableloop(getmetatable(value), indent, true, meta+1)
-				meta = meta + 1
-			else
-				result = result .. '\n' .. (not equal and string.rep('  ', indent + 1) or '') .. keyF(key) .. tableloop(value, indent + 1, true, meta)
-			end
+	function GetFullName(instance)
+		local p = instance
+		local lo = {}
+		while (p ~= game and p.Parent ~= nil) do
+			table.insert(lo, p)
+			p = p.Parent
+		end
+		local fullName
+		if #lo == 0 then
+			return "nil --[[ PARENTED TO NIL OR DESTROYED ]]"
+		end
+		if lo[#lo].ClassName ~= "Workspace" then
+			fullName = 'game:GetService("' .. lo[#lo].ClassName .. '")'
 		else
-			result = result .. '\n' .. (not equal and string.rep('  ', indent + 1) or '') .. keyF(key) .. Handle(value, indent + 1, keyE(key, value)) .. ';'
+			fullName = "workspace"
 		end
+		for i = #lo - 1, 1, -1 do
+			fullName = fullName .. ':FindFirstChild("' .. lo[i].Name .. '")'
+		end
+		return fullName
 	end
-	return _AM > 0 and (result .. '\n' .. string.rep('  ', indent) .. '}') or '{}'
-end
-
-function Handle(data, indent, identifier)
-	local dataType = typeof(data)
-	local constructors = {
-		['string'] = function(data) return "'" .. data .. "'" end,
-		['table'] = function(data) return tableloop(data, indent and indent + 1 or 1, identifier and true or false) end,
-		['function'] = function(data) return string.format('function(%s) --[[ i forgor the source? ]] end', BootlegDebug.getinfo(data).numparams) end,
-		['number'] = function(data) return tostring(data) end,
-		['Vector3'] = function(data) return string.format("Vector3.new(%f, %f, %f)", data.X, data.Y, data.Z) end,
-		['Vector2'] = function(data) return string.format("Vector2.new(%f, %f)", data.X, data.Y) end,
-		['UDim'] = function(data) return string.format("UDim.new(%f, %f)", data.Scale, data.Offset) end,
-		['UDim2'] = function(data) return string.format("UDim2.new(%f, %f, %f, %f)", data.X.Scale, data.X.Offset, data.Y.Scale, data.Y.Offset) end,
-		['CFrame'] = function(data) local components = {data:GetComponents()} return string.format("CFrame.new(%s)", table.concat(components, ", ")) end,
-		['Color3'] = function(data) return string.format("Color3.fromRGB(%d, %d, %d)", math.floor(data.R * 255), math.floor(data.G * 255), math.floor(data.B * 255)) end,
-		['BrickColor'] = function(data) return string.format("BrickColor.new('%s')", tostring(data)) end,
-		['Enum'] = function(data) return string.format("%s", tostring(data)) end,
-		['EnumItem'] = function(data) return string.format("%s", tostring(data)) end,
-		['Instance'] = function(data) return ('%s'):format(GetFullName(data)) end,
-		['buffer'] = function(data) return string.rep('  ', indent) .. ('buffer.create(%d)'):format(buffer.len(data)) end,
-		['boolean'] = function(data) return tostring(data) end
-	}
-	if constructors[dataType] then
-		return constructors[dataType](data)
-	else
-		return tostring(typeof(data)) .. '.new(' .. tostring(data) .. ')'
-	end
-end
-function GetEvents()
-	local Events = {}
-	for i, v in ipairs(game:GetDescendants()) do
-		if v:IsA("RemoteEvent") or v:IsA("UnreliableRemoteEvent") then
-			if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
-				table.insert(Events, v)
-			elseif not v:IsDescendantOf(game:GetService('Players')) then
-				table.insert(Events, v)
+	function tableloop(tbl, indent, equal, meta)
+		meta = meta or 0
+		indent = indent or 0
+		local result = (not equal and string.rep('  ', indent) or '') .. '{'
+		equal = false
+		if typeof(tbl) ~= 'table' then return Handle(tbl, indent) end
+		local _AM = 0
+		for key, value in pairs(tbl) do
+			_AM = _AM + 1
+			if typeof(value) == 'table' then
+				if getmetatable(value) then
+					result = result .. string.rep('  ', indent) .. 'local meta' .. (meta ~= 0 and tostring(meta) or '') .. ' = ' .. tableloop(getmetatable(value), indent, true, meta+1)
+					meta = meta + 1
+				else
+					result = result .. '\n' .. (not equal and string.rep('  ', indent + 1) or '') .. keyF(key) .. tableloop(value, indent + 1, true, meta)
+				end
+			else
+				result = result .. '\n' .. (not equal and string.rep('  ', indent + 1) or '') .. keyF(key) .. Handle(value, indent + 1, keyE(key, value)) .. ';'
 			end
 		end
+		return _AM > 0 and (result .. '\n' .. string.rep('  ', indent) .. '}') or '{}'
 	end
-	return Events
-end
-function GetBEvents()
-	local Events = {}
-	for i, v in ipairs(game:GetDescendants()) do
-		if v:IsA("BindableEvent") then
-			if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
-				table.insert(Events, v)
-			elseif not v:IsDescendantOf(game:GetService('Players')) then
-				table.insert(Events, v)
+	
+	function Handle(data, indent, identifier)
+		local dataType = typeof(data)
+		local constructors = {
+			['string'] = function(data) return "'" .. data .. "'" end,
+			['table'] = function(data) return tableloop(data, indent and indent + 1 or 1, identifier and true or false) end,
+			['function'] = function(data) return string.format('function(%s) --[[ i forgor the source? ]] end', BootlegDebug.getinfo(data).numparams) end,
+			['number'] = function(data) return tostring(data) end,
+			['Vector3'] = function(data) return string.format("Vector3.new(%f, %f, %f)", data.X, data.Y, data.Z) end,
+			['Vector2'] = function(data) return string.format("Vector2.new(%f, %f)", data.X, data.Y) end,
+			['UDim'] = function(data) return string.format("UDim.new(%f, %f)", data.Scale, data.Offset) end,
+			['UDim2'] = function(data) return string.format("UDim2.new(%f, %f, %f, %f)", data.X.Scale, data.X.Offset, data.Y.Scale, data.Y.Offset) end,
+			['CFrame'] = function(data) local components = {data:GetComponents()} return string.format("CFrame.new(%s)", table.concat(components, ", ")) end,
+			['Color3'] = function(data) return string.format("Color3.fromRGB(%d, %d, %d)", math.floor(data.R * 255), math.floor(data.G * 255), math.floor(data.B * 255)) end,
+			['BrickColor'] = function(data) return string.format("BrickColor.new('%s')", tostring(data)) end,
+			['Enum'] = function(data) return string.format("%s", tostring(data)) end,
+			['EnumItem'] = function(data) return string.format("%s", tostring(data)) end,
+			['Instance'] = function(data) return ('%s'):format(GetFullName(data)) end,
+			['buffer'] = function(data) return string.rep('  ', indent) .. ('buffer.create(%d)'):format(buffer.len(data)) end,
+			['boolean'] = function(data) return tostring(data) end
+		}
+		if constructors[dataType] then
+			return constructors[dataType](data)
+		else
+			return tostring(typeof(data)) .. '.new(' .. tostring(data) .. ')'
+		end
+	end
+	function GetEvents()
+		local Events = {}
+		for i, v in ipairs(game:GetDescendants()) do
+			if v:IsA("RemoteEvent") or v:IsA("UnreliableRemoteEvent") then
+				if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
+					table.insert(Events, v)
+				elseif not v:IsDescendantOf(game:GetService('Players')) then
+					table.insert(Events, v)
+				end
 			end
 		end
+		return Events
 	end
-	return Events
-end
-function GetFunctions()
-	local Funcs = {}
-	for i, v in ipairs(game:GetDescendants()) do
-		if v:IsA("RemoteFunction") then
-			if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
-				table.insert(Funcs, v)
-			elseif not v:IsDescendantOf(game:GetService('Players')) then
-				table.insert(Funcs, v)
+	function GetBEvents()
+		local Events = {}
+		for i, v in ipairs(game:GetDescendants()) do
+			if v:IsA("BindableEvent") then
+				if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
+					table.insert(Events, v)
+				elseif not v:IsDescendantOf(game:GetService('Players')) then
+					table.insert(Events, v)
+				end
 			end
 		end
+		return Events
 	end
-	return Funcs
-end
-function GetBFunctions()
-	local Funcs = {}
-	for i, v in ipairs(game:GetDescendants()) do
-		if v:IsA("BindableFunction") then
-			if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
-				table.insert(Funcs, v)
-			elseif not v:IsDescendantOf(game:GetService('Players')) then
-				table.insert(Funcs, v)
+	function GetFunctions()
+		local Funcs = {}
+		for i, v in ipairs(game:GetDescendants()) do
+			if v:IsA("RemoteFunction") then
+				if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
+					table.insert(Funcs, v)
+				elseif not v:IsDescendantOf(game:GetService('Players')) then
+					table.insert(Funcs, v)
+				end
 			end
 		end
+		return Funcs
 	end
-	return Funcs
-end
-function EventMain(Event)
-	Logger[Event] = 0
-	Event.OnClientEvent:Connect(function(...)
-		if Logger[Event] > Limits[Event.ClassName] then
-			return
+	function GetBFunctions()
+		local Funcs = {}
+		for i, v in ipairs(game:GetDescendants()) do
+			if v:IsA("BindableFunction") then
+				if v:IsDescendantOf(game:GetService('Players')) and v:IsDescendantOf(game:GetService("Players").LocalPlayer) then
+					table.insert(Funcs, v)
+				elseif not v:IsDescendantOf(game:GetService('Players')) then
+					table.insert(Funcs, v)
+				end
+			end
 		end
-		Logger[Event] = Logger[Event] + 1
-		local StrArgs = tableloop({...})
-		local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE CANNOT BE EXECUTED BY YOUR EXECUTOR, AS ITS JUST DEMONSTRATING WHAT THE SERVER DID. ]]\n\n%s:FireClient(game:GetService("Players").%s, unpack(args));', vers, Event.ClassName, StrArgs, GetFullName(Event), game:GetService("Players").LocalPlayer.Name)
-		Output(FullData)
-		task.delay(1, function()
-			Logger[Event] = Logger[Event] - 1
-		end)
-	end)
-end
-function BEventMain(Event)
-	Logger[Event] = 0
-	Event.Event:Connect(function(...)
-		if Logger[Event] > Limits[Event.ClassName] then
-			return
-		end
-		Logger[Event] = Logger[Event] + 1
-		local StrArgs = tableloop({...})
-		local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE **CAN** BE EXECUTED BY YOUR EXECUTOR AS THE FOLLOWING REMOTE IS A BINDABLE EVENT. ]]\n\n%s:Fire(unpack(args));', vers, Event.ClassName, StrArgs, GetFullName(Event), game:GetService("Players").LocalPlayer.Name)
-		task.delay(1, function()
-			Logger[Event] = Logger[Event] - 1
-		end)
-		Output(FullData)
-	end)
-end
-function FunctionMain(Func)
-	-- We cannot obtain the old function of the RemoteFunction so we have to override it, Breaking SOME scripts and potentially getting you kicked
-	Logger[Func] = 0
-	Func.OnClientInvoke = function(...)
-		if Logger[Func] > Limits[Func.ClassName] then
-			return
-		end
-		Logger[Func] = Logger[Func] + 1
-		local StrArgs = tableloop({...})
-		local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE CANNOT BE EXECUTED BY YOUR EXECUTOR, AS ITS JUST DEMONSTRATING WHAT THE SERVER DID. ]]\n\n%s:InvokeClient(game:GetService("Players").%s, unpack(args));', vers, Func.ClassName, StrArgs, GetFullName(Func), game:GetService("Players").LocalPlayer.Name)
-		Output(FullData)
-		task.delay(1, function()
-			Logger[Func] = Logger[Func] - 1
-		end)
-		return '1'
+		return Funcs
 	end
-end
-function BFunctionMain(Func)
-	-- We cannot obtain the old function of the BindableFunction so we have to override it, Breaking SOME scripts and potentially getting you kicked
-	Logger[Func] = 0
-	Func.OnInvoke = function(...)
-		if Logger[Func] > Limits[Func.ClassName] then
-			return
-		end
-		Logger[Func] = Logger[Func] + 1
-		local StrArgs = tableloop({...})
-		local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE **CAN** BE EXECUTED BY YOUR EXECUTOR, BUT A RETURN VALUE AND MAIN FUNCTIONALITY IS MISSING FOR THIS FUNCTIONS SO IT MIGHT NOT DO WHAT YOU EXPECT. ]]\n\n%s:Invoke(unpack(args));', vers, Func.ClassName, StrArgs, GetFullName(Func))
-		Output(FullData)
-		task.delay(1, function()
-			Logger[Func] = Logger[Func] - 1
+	function EventMain(Event)
+		Logger[Event] = 0
+		Event.OnClientEvent:Connect(function(...)
+			if Logger[Event] > Limits[Event.ClassName] then
+				return
+			end
+			Logger[Event] = Logger[Event] + 1
+			local StrArgs = tableloop({...})
+			local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE CANNOT BE EXECUTED BY YOUR EXECUTOR, AS ITS JUST DEMONSTRATING WHAT THE SERVER DID. ]]\n\n%s:FireClient(game:GetService("Players").%s, unpack(args));', vers, Event.ClassName, StrArgs, GetFullName(Event), game:GetService("Players").LocalPlayer.Name)
+			Output(FullData)
+			task.delay(1, function()
+				Logger[Event] = Logger[Event] - 1
+			end)
 		end)
-		return '1'
 	end
+	function BEventMain(Event)
+		Logger[Event] = 0
+		Event.Event:Connect(function(...)
+			if Logger[Event] > Limits[Event.ClassName] then
+				return
+			end
+			Logger[Event] = Logger[Event] + 1
+			local StrArgs = tableloop({...})
+			local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE **CAN** BE EXECUTED BY YOUR EXECUTOR AS THE FOLLOWING REMOTE IS A BINDABLE EVENT. ]]\n\n%s:Fire(unpack(args));', vers, Event.ClassName, StrArgs, GetFullName(Event), game:GetService("Players").LocalPlayer.Name)
+			task.delay(1, function()
+				Logger[Event] = Logger[Event] - 1
+			end)
+			Output(FullData)
+		end)
+	end
+	function FunctionMain(Func)
+		-- We cannot obtain the old function of the RemoteFunction so we have to override it, Breaking SOME scripts and potentially getting you kicked
+		Logger[Func] = 0
+		Func.OnClientInvoke = function(...)
+			if Logger[Func] > Limits[Func.ClassName] then
+				return
+			end
+			Logger[Func] = Logger[Func] + 1
+			local StrArgs = tableloop({...})
+			local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE CANNOT BE EXECUTED BY YOUR EXECUTOR, AS ITS JUST DEMONSTRATING WHAT THE SERVER DID. ]]\n\n%s:InvokeClient(game:GetService("Players").%s, unpack(args));', vers, Func.ClassName, StrArgs, GetFullName(Func), game:GetService("Players").LocalPlayer.Name)
+			Output(FullData)
+			task.delay(1, function()
+				Logger[Func] = Logger[Func] - 1
+			end)
+			return '1'
+		end
+	end
+	function BFunctionMain(Func)
+		-- We cannot obtain the old function of the BindableFunction so we have to override it, Breaking SOME scripts and potentially getting you kicked
+		Logger[Func] = 0
+		Func.OnInvoke = function(...)
+			if Logger[Func] > Limits[Func.ClassName] then
+				return
+			end
+			Logger[Func] = Logger[Func] + 1
+			local StrArgs = tableloop({...})
+			local FullData = string.format('--[[ Script generated by BootSpy v%s\nRemote Type: %s\n]]\nlocal args = %s\n\n--[[ THE FOLLOWING LINE **CAN** BE EXECUTED BY YOUR EXECUTOR, BUT A RETURN VALUE AND MAIN FUNCTIONALITY IS MISSING FOR THIS FUNCTIONS SO IT MIGHT NOT DO WHAT YOU EXPECT. ]]\n\n%s:Invoke(unpack(args));', vers, Func.ClassName, StrArgs, GetFullName(Func))
+			Output(FullData)
+			task.delay(1, function()
+				Logger[Func] = Logger[Func] - 1
+			end)
+			return '1'
+		end
+	end
+	local a, b, c, d = GetEvents(), GetFunctions(), GetBEvents(), GetBFunctions()
+	for _, v in pairs(a) do
+		EventMain(v)
+	end
+	for _, v in pairs(b) do
+		FunctionMain(v)
+	end
+	for _, v in pairs(c) do
+		BEventMain(v)
+	end
+	for _, v in pairs(d) do
+		BFunctionMain(v)
+	end
+	
+	print('Successfully implemented BootSpy.')
 end
-local a, b, c, d = GetEvents(), GetFunctions(), GetBEvents(), GetBFunctions()
-for _, v in pairs(a) do
-	EventMain(v)
-end
-for _, v in pairs(b) do
-	FunctionMain(v)
-end
-for _, v in pairs(c) do
-	BEventMain(v)
-end
-for _, v in pairs(d) do
-	BFunctionMain(v)
-end
-
-print('Successfully implemented BootSpy.')
+coroutine.wrap(WPFRTG_fake_script)()
