@@ -28,10 +28,10 @@ Configuration.Animations = true
 Configuration.WaitTime = 0.3
 Configuration.RigName = "FakeRig"
 Configuration.TeleportOffsetRadius = 25
-Configuration.NoCollisions = true
-Configuration.AntiVoiding = true
+Configuration.NoCollisions = false
+Configuration.AntiVoiding = false
 Configuration.SetSimulationRadius = true
-Configuration.DisableCharacterScripts = true
+Configuration.DisableCharacterScripts = false
 Configuration.Hats = Hats
 local Module = game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau")
 loadstring(Module)()
