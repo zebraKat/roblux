@@ -341,8 +341,8 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimSpeed = 1.0
 					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-                    CurrentAnim.Looped = false
-                    
+                    CurrentAnimTrack.Looped = false
+
 					CurrentAnimTrack:Play(TransitionTime)
 					CurrentAnim = AnimName
 					CurrentAnimInstance = Anim
