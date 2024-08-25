@@ -373,7 +373,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local function OnPlatformStanding() if AnimationsToggled then Pose = "PlatformStanding" end end
 			local function OnRunning(Speed)
 				if AnimationsToggled then
-					if Speed > 2 then
+					if Speed > 0.5 then
 						PlayAnimation("Walk", 0.1) Pose = "Running"
 						if CurrentAnimInstance and (CurrentAnimInstance.AnimationId == AnimData.Run or CurrentAnimInstance.AnimationId == AnimData.Run.Anim) then
 							SetAnimationSpeed(Speed / 14.5)
