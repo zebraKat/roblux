@@ -2,7 +2,7 @@ if not getgenv()["Animator"] then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/xhayperAnimTest.lua"))()
 	hookAnimatorFunction() -- Hook animator to Humanoid:LoadAnimation()
 end
-task.wait(5)
+task.wait(1)
 local Hats = {
     ["Head"] = {
         {Mesh= "rbxassetid://17517530794", Texture = "rbxassetid://17517478791", Name = "Kleos Erebus", Offset = CFrame.Angles(0,0,0)}
