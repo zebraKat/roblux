@@ -22,7 +22,7 @@ local Hats = {
         {Texture = "4819722776", Mesh = "4819720316", Name = "MeshPartAccessory", Offset = CFrame.Angles(0, 0, math.rad(-15))}
     },
     
-     ["BackAccessory"] = {
+     ["UpperTorso"] = {
         {Texture = "rbxassetid://13557527882", Mesh = "rbxassetid://13557520961", Name = "MeshPartAccessory", Offset = CFrame.Angles(math.rad(-90), 0, math.rad(90))}
     }
     
