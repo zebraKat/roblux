@@ -1,7 +1,7 @@
 local Hats = {
-    ["Head"] = {
-        {Mesh= "rbxassetid://17517530794", Texture = "rbxassetid://17517478791", Name = "Kleos Erebus", Offset = CFrame.Angles(0,0,0)}
-    },
+    -- ["Head"] = {
+    --     {Mesh= "rbxassetid://17517530794", Texture = "rbxassetid://17517478791", Name = "Kleos Erebus", Offset = CFrame.Angles(0,0,0)}
+    -- },
     ["Right Arm"] = {
         {Texture = "4645402630", Mesh = "3030546036", Name = "International Fedora", Offset = CFrame.Angles(math.rad(-90), 0, math.rad(90))}
     },
@@ -32,7 +32,7 @@ Configuration.Flinging = true
 Configuration.PresetFling = Configuration.Flinging -- set to false if you gonna use the one from library
 Configuration.Animations = true
 Configuration.WaitTime = 0.22
-Configuration.RigName = "FakeRig"
+Configuration.RigName = "fakeRig"
 Configuration.TeleportOffsetRadius = 10
 Configuration.NoCollisions = false
 Configuration.AntiVoiding = true
