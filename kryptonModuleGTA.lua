@@ -316,11 +316,6 @@ do -- [[ Scoped Rig Creating. ]]
 			local JumpAnimTime = 0
 			local Time = 0
 
-			for Name, ID in AnimData do
-				AnimationTable[Name] = {}
-				AnimationTable[Name].Anim = Instance.new("Animation")
-				AnimationTable[Name].Anim.AnimationId = ID
-			end
 
 			local function SetAnimationSpeed(Speed)
 				if Speed ~= CurrentAnimSpeed then
@@ -339,7 +334,7 @@ do -- [[ Scoped Rig Creating. ]]
 					end
 
 					CurrentAnimSpeed = 1.0
-					CurrentAnimTrack = Animator.new(Anim,Anim)
+					CurrentAnimTrack = Animator.new(FakeRig,Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
 
 					CurrentAnimTrack:Play()
