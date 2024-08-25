@@ -344,7 +344,7 @@ do -- [[ Scoped Rig Creating. ]]
 						end
 					end)
 				end
-			end
+			end)
 
 			local function OnDied() if AnimationsToggled then Pose = "Dead" end end
 			local function OnGettingUp() if AnimationsToggled then Pose = "GettingUp" end end
@@ -439,9 +439,9 @@ do -- [[ Scoped Rig Creating. ]]
 			end)
 
 			table.clear(AnimData)
-		end)
+		end
 	end
-end
+
 
 -- // RunTime: Functions
 
@@ -869,6 +869,9 @@ if IsMobile then
 			MouseDown = true
 		end
 	end
+    local Module = game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/kryptonModuleGTA.luau")
+   
+    print( loadstring(Module))
 
 	local function OnTouchMoved(Input)
 		if IsActive then
