@@ -45,6 +45,7 @@ if not getgenv()["Animator"] then
 end
 
 local Players = game:GetService("Players")
+while task.wait() do
 local Player = workspace:FindFirstChildOfClass("Terrain"):FindFirstChild("fakeRig")
 
 
@@ -109,3 +110,4 @@ local function OnDied()  Pose = "Dead" end
 			Player:FindFirstChildOfClass("Humanoid").FallingDown:Connect(OnFallingDown)
 			Player:FindFirstChildOfClass("Humanoid").Seated:Connect(OnSeated)
 			Player:FindFirstChildOfClass("Humanoid").PlatformStanding:Connect(OnPlatformStanding)
+end
