@@ -24,18 +24,20 @@ local Hats = {
     
 }
 
+
+
 Configuration = {}
 Configuration.ReturnOnDeath = true
 Configuration.Flinging = true
-Configuration.PresetFling = true -- set to false if you gonna use the one from library
+Configuration.PresetFling = Configuration.Flinging -- set to false if you gonna use the one from library
 Configuration.Animations = true
-Configuration.WaitTime =  0.251 
-Configuration.RigName = "fakeRig"
+Configuration.WaitTime = 0.22
+Configuration.RigName = "FakeRig"
 Configuration.TeleportOffsetRadius = 10
-Configuration.NoCollisions = false
-Configuration.AntiVoiding = false
+Configuration.NoCollisions = true
+Configuration.AntiVoiding = true
 Configuration.SetSimulationRadius = true
-Configuration.DisableCharacterScripts = false
+Configuration.DisableCharacterScripts = true
 Configuration.Hats = Hats
 local Module = game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau")
 loadstring(Module)()
