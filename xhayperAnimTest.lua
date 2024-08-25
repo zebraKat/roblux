@@ -60,9 +60,7 @@ local Play = Main.Button({
 local Stop = Main.Button({
 	Text = "Stop",
 	Callback = function()
-		if currentAnim and currentAnim.IsPlaying then
 			currentAnim:Stop()
-		end
 	end
 })
 
