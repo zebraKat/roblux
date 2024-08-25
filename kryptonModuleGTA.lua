@@ -307,7 +307,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local AnimationTable = {}
 			local AnimData = {
 				-- Movement Anims
-				Idle = "rbxassetid://110251469536480", Walk = "rbxassetid://91400065271169", Run = "rbxassetid://122484000692443", Jump = "125750702", Fall = "180436148", Climb = "180436334", Sit = "178130996",
+				Idle = "110251469536480", Walk = "91400065271169", Run = "122484000692443", Jump = "http://www.roblox.com/asset/?id=125750702", Fall = "http://www.roblox.com/asset/?id=180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "http://www.roblox.com/asset/?id=178130996",
 				-- Animations
 				dance1 = "http://www.roblox.com/asset/?id=182435998", dance2 = "http://www.roblox.com/asset/?id=182436842", dance3 = "http://www.roblox.com/asset/?id=182436935", wave = "http://www.roblox.com/asset/?id=128777973", point = "http://www.roblox.com/asset/?dan=128853357", laugh = "http://www.roblox.com/asset/?id=129423131", cheer = "http://www.roblox.com/asset/?id=129423030"
 			}
@@ -316,16 +316,34 @@ do -- [[ Scoped Rig Creating. ]]
 			local JumpAnimTime = 0
 			local Time = 0
 
+			for Name, ID in AnimData do
+				AnimationTable[Name] = {}
+				AnimationTable[Name].Anim = ID
+			end
 
+			local function SetAnimationSpeed(Speed)
+				if Speed ~= CurrentAnimSpeed then
+					CurrentAnimSpeed = Speed
+					CurrentAnimTrack:AdjustSpeed(CurrentAnimSpeed)
+				end
+			end
 
-			local function PlayAnimation(id)
+			local function PlayAnimation(AnimName, TransitionTime)
+				local Anim = AnimationTable[AnimName].Anim
 
+				if Anim ~= CurrentAnimInstance then
+					if CurrentAnimTrack ~= nil then
+						CurrentAnimTrack:Stop(TransitionTime)
+						CurrentAnimTrack:Destroy()
+					end
 
-					CurrentAnimTrack = FakeRig:LoadAnimation(id)
+					CurrentAnimSpeed = 1.0
+					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-					print(CurrentAnimTrack)
-					CurrentAnimTrack:Play()
-					CurrentAnim = id
+
+					CurrentAnimTrack:Play(TransitionTime)
+					CurrentAnim = AnimName
+					CurrentAnimInstance = Anim
 
 					if CurrentAnimKeyframeHandler then
 						CurrentAnimKeyframeHandler:disconnect()
@@ -344,7 +362,7 @@ do -- [[ Scoped Rig Creating. ]]
 						end
 					end)
 				end
-			end)
+			end
 
 			local function OnDied() if AnimationsToggled then Pose = "Dead" end end
 			local function OnGettingUp() if AnimationsToggled then Pose = "GettingUp" end end
@@ -354,7 +372,10 @@ do -- [[ Scoped Rig Creating. ]]
 			local function OnRunning(Speed)
 				if AnimationsToggled then
 					if Speed > 0.01 then
-						PlayAnimation(91400065271169) Pose = "Running"
+						PlayAnimation("Walk", 0.1) Pose = "Running"
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
+							SetAnimationSpeed(Speed / 14.5)
+						end
 					elseif not EmoteNames[CurrentAnim] then 
 						PlayAnimation("Idle", 0.1) Pose = "Standing"
 					end
@@ -363,17 +384,39 @@ do -- [[ Scoped Rig Creating. ]]
 
 			local function OnJumping()
 				if AnimationsToggled then 
-					PlayAnimation(0)
+					PlayAnimation("Jump", 0.1)
 					JumpAnimTime = 0.3
 					Pose = "Jumping"
 				end
 			end
 
+			local function OnClimbing(Speed)
+				if AnimationsToggled then
+					PlayAnimation("Climb", 0.1) SetAnimationSpeed(Speed / 12.0) Pose = "Climbing"
+				end
+			end
 
+			local function OnFreeFall()
+				if AnimationsToggled then
+					if JumpAnimTime <= 0 then PlayAnimation("Fall", 0.3) end
+					Pose = "FreeFall"
+				end
+			end
+
+			local function OnSwimming(Speed)
+				if AnimationsToggled then Pose = Speed >= 0 and "Running" or "Standing" end
+			end
 
 			FakeHumanoid.Died:Connect(OnDied)
 			FakeHumanoid.Running:Connect(OnRunning)
 			FakeHumanoid.Jumping:Connect(OnJumping)
+			FakeHumanoid.Climbing:Connect(OnClimbing)
+			FakeHumanoid.GettingUp:Connect(OnGettingUp)
+			FakeHumanoid.FreeFalling:Connect(OnFreeFall)
+			FakeHumanoid.FallingDown:Connect(OnFallingDown)
+			FakeHumanoid.Seated:Connect(OnSeated)
+			FakeHumanoid.PlatformStanding:Connect(OnPlatformStanding)
+			FakeHumanoid.Swimming:Connect(OnSwimming)
 
 			AnimationHandlingFunction = function(Message)
 				local Emote = ""
@@ -439,9 +482,9 @@ do -- [[ Scoped Rig Creating. ]]
 			end)
 
 			table.clear(AnimData)
-		end
+		end)
 	end
-
+end
 
 -- // RunTime: Functions
 
@@ -869,9 +912,6 @@ if IsMobile then
 			MouseDown = true
 		end
 	end
-    local Module = game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/kryptonModuleGTA.luau")
-   
-    print( loadstring(Module))
 
 	local function OnTouchMoved(Input)
 		if IsActive then
