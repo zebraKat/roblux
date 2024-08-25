@@ -307,7 +307,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local AnimationTable = {}
 			local AnimData = {
 				-- Movement Anims
-				Idle = "110251469536480", Walk = "91400065271169", Run = "122484000692443", Jump = "125750702", Fall = "180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "178130996",
+				Idle = "110251469536480", Walk = "91400065271169", Run = "122484000692443", Jump = "http://www.roblox.com/asset/?id=125750702", Fall = "http://www.roblox.com/asset/?id=180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "http://www.roblox.com/asset/?id=178130996",
 				-- Animations
 				dance1 = "http://www.roblox.com/asset/?id=182435998", dance2 = "http://www.roblox.com/asset/?id=182436842", dance3 = "http://www.roblox.com/asset/?id=182436935", wave = "http://www.roblox.com/asset/?id=128777973", point = "http://www.roblox.com/asset/?dan=128853357", laugh = "http://www.roblox.com/asset/?id=129423131", cheer = "http://www.roblox.com/asset/?id=129423030"
 			}
@@ -318,7 +318,8 @@ do -- [[ Scoped Rig Creating. ]]
 
 			for Name, ID in AnimData do
 				AnimationTable[Name] = {}
-				AnimationTable[Name].Anim = ID
+				AnimationTable[Name].Anim = Instance.new("Animation")
+				AnimationTable[Name].Anim.AnimationId = ID
 			end
 
 			local function SetAnimationSpeed(Speed)
@@ -332,8 +333,7 @@ do -- [[ Scoped Rig Creating. ]]
 				local Anim = AnimationTable[AnimName].Anim
 
 				if Anim ~= CurrentAnimInstance then
-                    print(CurrentAnimTrack)
-					if CurrentAnimTrack ~= nil and CurrentAnimTrack.Stop then
+					if CurrentAnimTrack ~= nil then
 						CurrentAnimTrack:Stop(TransitionTime)
 						CurrentAnimTrack:Destroy()
 					end
@@ -341,7 +341,6 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimSpeed = 1.0
 					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-                    CurrentAnimTrack.Looped = true
 
 					CurrentAnimTrack:Play(TransitionTime)
 					CurrentAnim = AnimName
@@ -373,9 +372,9 @@ do -- [[ Scoped Rig Creating. ]]
 			local function OnPlatformStanding() if AnimationsToggled then Pose = "PlatformStanding" end end
 			local function OnRunning(Speed)
 				if AnimationsToggled then
-					if Speed > 0.1 then
+					if Speed > 0.01 then
 						PlayAnimation("Walk", 0.1) Pose = "Running"
-						if CurrentAnimInstance and (CurrentAnimInstance.AnimationId == AnimData.Run or CurrentAnimInstance.AnimationId == AnimData.Run.Anim) then
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
 							SetAnimationSpeed(Speed / 14.5)
 						end
 					elseif not EmoteNames[CurrentAnim] then 
