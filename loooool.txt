@@ -1,0 +1,180 @@
+---!strict
+local runservice:RunService = game:GetService("RunService")
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local deathPosition:Vector3 = Vector3.zero
+
+local function checkNetworkOwnership(part:Part?)
+	return part and part.ReceiveAge == 0
+end
+
+do
+	local FakeRig:Model = Instance.new("Model")
+	FakeRig.Parent = workspace:WaitForChild("Terrain")
+
+	local FakeRoot = Instance.new("Part")
+	FakeRoot.Parent = FakeRig
+
+	local FakeHumanoid = Instance.new("Humanoid") 
+	FakeHumanoid.Parent = FakeRig
+
+	local HumanoidDescription = Instance.new("HumanoidDescription") 
+	HumanoidDescription.Parent = FakeHumanoid
+
+	local Animator = Instance.new("Animator") 
+	Animator.Parent = FakeHumanoid
+
+	local Animate = Instance.new("LocalScript") 
+	Animate.Parent = FakeRig
+	Animate.Name = "Animate"
+
+	local Head = Instance.new("Part") 
+	Head.Parent = FakeRig
+	Head.Name = "Head"
+	Head.Size = Vector3.new(2,1,1)
+	Head.Transparency = 1
+
+
+	local Torso = Instance.new("Part")
+	Torso.Parent = FakeRig
+	Torso.Name = "Torso"
+	Torso.Size = Vector3.new(2,2,1)
+	Torso.Transparency = 1
+
+	local RightArm = Instance.new("Part") 
+	RightArm.Parent = FakeRig
+	RightArm.Name = "RightArm"
+	RightArm.Size = Vector3.new(1,2,1)
+	RightArm.Transparency = 1
+	RightArm.CanCollide = false
+
+
+	local LeftArm = RightArm:Clone() 
+	LeftArm.Parent = FakeRig
+	LeftArm.Name = "LeftArm"
+
+
+	local LeftLeg = RightArm:Clone() 
+	LeftLeg.Parent = FakeRig
+	LeftLeg.Name = "LeftLeg"
+
+	local RightLeg = RightArm:Clone()
+	RightLeg.Parent = FakeRig
+	RightLeg.Name = "RightLeg"
+	
+	FakeRig.PrimaryPart = Head
+	
+	FakeHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+	FakeHumanoid:ChangeState(Enum.HumanoidStateType.Landed)
+
+
+	local function MakeMotor6D(Name, Part0, Part1, C0, C1)
+		local Joint = Instance.new("Motor6D")
+
+		Joint.Name = Name
+		Joint.Part0 = Part0
+		Joint.Part1 = Part1
+		Joint.C0 = C0
+		Joint.C1 = C1
+
+		Joint.Parent = Part0
+
+		return Joint
+	end
+
+	local function MakeAttachment(Name:string, _CFrame:CFrame, Parent:Instance) 
+		local Attachment = Instance.new("Attachment") do
+			Attachment.Name = Name
+			Attachment.Parent = Parent
+			Attachment.CFrame = _CFrame
+		end
+	end
+
+	-- TO USE: index limb with the accessory name.
+	local limbs = {["Right Leg"] = ""}
+
+	MakeMotor6D('Neck', Torso, Head, CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0), CFrame.new(0, -0.5, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0))
+	MakeMotor6D('RootJoint', FakeRoot, Torso, CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0), CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0))
+	local RightShoulder = MakeMotor6D('Right Shoulder', Torso, RightArm, CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0), CFrame.new(-0.5, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+	local LeftShoulder = MakeMotor6D('Left Shoulder', Torso, LeftArm, CFrame.new(-1, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0), CFrame.new(0.5, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0))
+	local RightHip = MakeMotor6D('Right Hip', Torso, RightLeg, CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0), CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+	local LeftHip = MakeMotor6D('Left Hip', Torso, LeftLeg, CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0), CFrame.new(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0))
+
+	local Attachments = {
+		HairAttachment = {CFrame.new(0, 0.6, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		HatAttachment = {CFrame.new(0, 0.6, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		FaceFrontAttachment = {CFrame.new(0, 0, -0.6, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		RootAttachment = {CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), FakeRoot},
+		LeftShoulderAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftArm},
+		LeftGripAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftArm},
+		RightShoulderAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightArm},
+		RightGripAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightArm},
+		LeftFootAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftLeg},
+		RightFootAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightLeg},
+		NeckAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		BodyFrontAttachment = {CFrame.new(0, 0, -0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		BodyBackAttachment = {CFrame.new(0, 0, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		LeftCollarAttachment = {CFrame.new(-1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		RightCollarAttachment = {CFrame.new(1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistFrontAttachment = {CFrame.new(0, -1, -0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistCenterAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistBackAttachment = {CFrame.new(0, -1, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso}
+	}
+
+	for name, attachmentdata in Attachments do
+		MakeAttachment(name, attachmentdata[1], attachmentdata[2])
+	end
+
+
+
+	table.clear(Attachments)
+
+	local function convertAccessoryWeldsToMotor6D(currentCharacter:Model)
+		--print(currentCharacter)
+		currentCharacter.Archivable = true
+			
+		local humanoid = currentCharacter:FindFirstChildOfClass("Humanoid")
+		
+		if not currentCharacter.PrimaryPart or not humanoid then return end
+		
+		currentCharacter.PrimaryPart.CFrame = CFrame.new(deathPosition)
+		
+		task.wait()
+		
+		for _, instance:Instance in currentCharacter:GetDescendants() do
+			if instance:IsA("Weld") then 			
+				local motor6d = Instance.new("Motor6D") do
+					--motor6d.Active = true
+					motor6d.C0 = instance.C1:Inverse()
+					motor6d.C1 = instance.C0:Inverse()
+					
+					motor6d.Enabled = true
+					
+					motor6d.Parent = currentCharacter.PrimaryPart
+					motor6d.Name = instance.Name
+					
+					motor6d.Part0 = instance.Part0
+					motor6d.Part1 = FakeRoot
+				end
+				
+				instance:Destroy()
+			elseif instance:IsA("Motor6D") then
+				instance:Destroy()
+			end
+			task.wait()
+		end
+		
+		--currentCharacter.PrimaryPart.CanCollide = true
+		runservice.PostSimulation:Wait()
+		
+		humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+		currentCharacter:BreakJoints()
+	end
+
+
+	--createRig(character)
+	player.Character = FakeRig
+	convertAccessoryWeldsToMotor6D(character)
+	player.CharacterAdded:Connect( convertAccessoryWeldsToMotor6D )
+end
