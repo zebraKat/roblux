@@ -333,7 +333,7 @@ do -- [[ Scoped Rig Creating. ]]
 
 				if Anim ~= CurrentAnimInstance then
                     print(CurrentAnimTrack)
-					if CurrentAnimTrack ~= nil then
+					if CurrentAnimTrack ~= nil and CurrentAnimTrack.Stop then
 						CurrentAnimTrack:Stop(TransitionTime)
 						CurrentAnimTrack:Destroy()
 					end
@@ -341,7 +341,7 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimSpeed = 1.0
 					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-                
+                    CurrentAnimTrack.Looped = true
 
 					CurrentAnimTrack:Play(TransitionTime)
 					CurrentAnim = AnimName
