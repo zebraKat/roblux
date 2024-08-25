@@ -341,7 +341,7 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimSpeed = 1.0
 					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-                    CurrentAnimTrack.Looped = false
+                
 
 					CurrentAnimTrack:Play(TransitionTime)
 					CurrentAnim = AnimName
@@ -375,7 +375,7 @@ do -- [[ Scoped Rig Creating. ]]
 				if AnimationsToggled then
 					if Speed > 5 then
 						PlayAnimation("Run", 0.1) Pose = "Running"
-						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == AnimData.Run then
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == AnimData.Run.Anim then
 							SetAnimationSpeed(Speed / 14.5)
 						end
 					elseif not EmoteNames[CurrentAnim] then 
