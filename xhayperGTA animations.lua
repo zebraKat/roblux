@@ -42,6 +42,6 @@ Configuration.AntiVoiding = false
 Configuration.SetSimulationRadius = true
 Configuration.DisableCharacterScripts = false
 Configuration.Hats = Hats
-local Module = game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/kryptonModuleGTA.luau")
+local Module = game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/kryptonModuleGTA.lua")
 loadstring(Module)()
 
