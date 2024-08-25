@@ -397,16 +397,16 @@ do -- [[ Scoped Rig Creating. ]]
 				end
 			end
 
-			local function OnFreeFall()
-				if AnimationsToggled then
-					if JumpAnimTime <= 0 then PlayAnimation("Fall", 0.3) end
-					Pose = "FreeFall"
-				end
-			end
+			-- local function OnFreeFall()
+			-- 	if AnimationsToggled then
+			-- 		if JumpAnimTime <= 0 then PlayAnimation("Fall", 0.3) end
+			-- 		Pose = "FreeFall"
+			-- 	end
+			-- end
 
-			local function OnSwimming(Speed)
-				if AnimationsToggled then Pose = Speed >= 0 and "Running" or "Standing" end
-			end
+			-- local function OnSwimming(Speed)
+			-- 	if AnimationsToggled then Pose = Speed >= 0 and "Running" or "Standing" end
+			-- end
 
 			FakeHumanoid.Died:Connect(OnDied)
 			FakeHumanoid.Running:Connect(OnRunning)
