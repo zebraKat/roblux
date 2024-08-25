@@ -342,7 +342,7 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimTrack = Animator.new(Anim,Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
 
-					CurrentAnimTrack:Play(TransitionTime)
+					CurrentAnimTrack:Play()
 					CurrentAnim = AnimName
 					CurrentAnimInstance = Anim
 
