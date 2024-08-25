@@ -307,7 +307,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local AnimationTable = {}
 			local AnimData = {
 				-- Movement Anims
-				Idle = "110251469536480", Walk = "91400065271169", Run = "122484000692443", Jump = "125750702", Fall = "180436148", Climb = "180436334", Sit = "178130996",
+				Idle = "rbxassetid://110251469536480", Walk = "rbxassetid://91400065271169", Run = "rbxassetid://122484000692443", Jump = "125750702", Fall = "180436148", Climb = "180436334", Sit = "178130996",
 				-- Animations
 				dance1 = "http://www.roblox.com/asset/?id=182435998", dance2 = "http://www.roblox.com/asset/?id=182436842", dance3 = "http://www.roblox.com/asset/?id=182436935", wave = "http://www.roblox.com/asset/?id=128777973", point = "http://www.roblox.com/asset/?dan=128853357", laugh = "http://www.roblox.com/asset/?id=129423131", cheer = "http://www.roblox.com/asset/?id=129423030"
 			}
