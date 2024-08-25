@@ -375,7 +375,7 @@ do -- [[ Scoped Rig Creating. ]]
 				if AnimationsToggled then
 					if Speed > 5 then
 						PlayAnimation("Run", 0.1) Pose = "Running"
-						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == AnimData.Run.Anim then
+						if CurrentAnimInstance and (CurrentAnimInstance.AnimationId == AnimData.Run or CurrentAnimInstance.AnimationId == AnimData.Run.Anim) then
 							SetAnimationSpeed(Speed / 14.5)
 						end
 					elseif not EmoteNames[CurrentAnim] then 
@@ -451,7 +451,7 @@ do -- [[ Scoped Rig Creating. ]]
 				elseif Pose == "Seated" then
 					PlayAnimation("Sit", 0.5)
 				elseif Pose == "Running" then
-					PlayAnimation("Walk", 0.1)
+					PlayAnimation("Run", 0.1)
 				elseif Pose == "Dead" or Pose == "GettingUp" or Pose == "FallingDown" or Pose == "Seated" or Pose == "PlatformStanding" then
 					local OldAnim = CurrentAnim
 
