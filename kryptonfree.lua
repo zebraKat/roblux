@@ -19,7 +19,7 @@ local Hats = {
         {Texture = "4819722776", Mesh = "4819720316", Name = "MeshPartAccessory", Offset = CFrame.Angles(0, 0, math.rad(-15))}
     },
     ["Head"] = {
-        {Mesh= "17517530794", Texture = "17517478791", Name = "Kleos Erebus"}
+        {Mesh= "17517530794", Texture = "17517478791", Name = "Kleos Erebus", Offset = CFrame.Angles(0,0,0)}
     }
 }
 
