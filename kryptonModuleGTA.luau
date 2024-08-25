@@ -330,7 +330,7 @@ do -- [[ Scoped Rig Creating. ]]
 					CurrentAnimSpeed = 1.0
 					CurrentAnimTrack = FakeRig:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-
+						print(CurrentAnimTrack)
 					CurrentAnimTrack:Play()
 					CurrentAnim = AnimName
 					CurrentAnimInstance = Anim
@@ -362,7 +362,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local function OnRunning(Speed)
 				if AnimationsToggled then
 					if Speed > 0.01 then
-						PlayAnimation("Walk", 0.1) Pose = "Running"
+						PlayAnimation("Running", 0.1) Pose = "Running"
 						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "180426354" then
 							SetAnimationSpeed(Speed / 14.5)
 						end
