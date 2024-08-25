@@ -1,6 +1,5 @@
 if not getgenv()["Animator"] then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/xhayperAnimTest.lua"))()
-	hookAnimatorFunction() -- Hook animator to Humanoid:LoadAnimation()
 end
 task.wait(1)
 local Hats = {
