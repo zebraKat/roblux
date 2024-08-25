@@ -50,9 +50,9 @@ local Player = workspace:FindFirstChildOfClass("Terrain"):FindFirstChild("fakeRi
 
 local AnimData = {
 				-- Movement Anims
-				Idle = "http://www.roblox.com/asset/?id=180435571", 
-        Walk = "http://www.roblox.com/asset/?id=180426354",
-        Run = "Run.xml", 
+				Idle = "http://www.roblox.com/asset/?id=110251469536480", 
+        Walk = "http://www.roblox.com/asset/?id=91400065271169",
+        Run = "http://www.roblox.com/asset/?id=122484000692443", 
         Jump = "http://www.roblox.com/asset/?id=125750702", 
         Fall = "http://www.roblox.com/asset/?id=180436148", 
         Climb = "http://www.roblox.com/asset/?id=180436334", 
@@ -75,27 +75,27 @@ local function OnDied()  Pose = "Dead" end
 			local function OnRunning(Speed)
 				
 					if Speed > 0.01 then
-						Animator.new(Player.Character, AnimData.Run):Play()
+						Animator.new(Player, AnimData.Run):Play()
             Pose = "Running"   
 					end
 	
 			end
 
 			local function OnJumping()
-			    Animator.new(Player.Character, AnimData.Jump):Play()
+			    Animator.new(Player, AnimData.Jump):Play()
 					Pose = "Jumping"
 		
 			end
 
 			local function OnClimbing(Speed)
 			
-					Animator.new(Player.Character, AnimData.Climb):Play()
+					Animator.new(Player, AnimData.Climb):Play()
 	
 			end
 
 			local function OnFreeFall()
 				
-					if JumpAnimTime <= 0 then Animator.new(Player.Character, AnimData.Fall):Play() end
+					if JumpAnimTime <= 0 then Animator.new(Player, AnimData.Fall):Play() end
 					Pose = "FreeFall"
 
 			end
