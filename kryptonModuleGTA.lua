@@ -317,12 +317,6 @@ do -- [[ Scoped Rig Creating. ]]
 			local Time = 0
 
 
-			local function SetAnimationSpeed(Speed)
-				if Speed ~= CurrentAnimSpeed then
-					CurrentAnimSpeed = Speed
-					CurrentAnimTrack:AdjustSpeed(CurrentAnimSpeed)
-				end
-			end
 
 			local function PlayAnimation(AnimName, TransitionTime)
 				local Anim = AnimationTable[AnimName].Anim
@@ -334,7 +328,7 @@ do -- [[ Scoped Rig Creating. ]]
 					end
 
 					CurrentAnimSpeed = 1.0
-					CurrentAnimTrack = Animator.new(FakeRig,Anim)
+					CurrentAnimTrack = FakeRig:LoadAnimation(Anim)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
 
 					CurrentAnimTrack:Play()
