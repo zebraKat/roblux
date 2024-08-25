@@ -36,6 +36,7 @@ getgenv().hookAnimatorFunction = function()
 			return OldFunc(Object, ...)
 		end
 		local args = { ... }
+		print(table.concat(args," , "))
 		return Animator.new(Object.Parent, args[1].AnimationId)
 	end)
 	Utility:sendNotif("Hook Loaded\nby whited#4382", nil, 5)
