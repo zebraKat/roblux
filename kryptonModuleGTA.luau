@@ -318,22 +318,14 @@ do -- [[ Scoped Rig Creating. ]]
 
 
 
-			local function PlayAnimation(AnimName, TransitionTime)
-				local Anim = AnimationTable[AnimName]
+			local function PlayAnimation(id)
 
-				if Anim ~= CurrentAnimInstance then
-					if CurrentAnimTrack ~= nil then
-						CurrentAnimTrack:Stop(TransitionTime)
-						CurrentAnimTrack:Destroy()
-					end
 
-					CurrentAnimSpeed = 1.0
-					CurrentAnimTrack = FakeRig:LoadAnimation(Anim)
+					CurrentAnimTrack = FakeRig:LoadAnimation(id)
 					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
-						print(CurrentAnimTrack)
+					print(CurrentAnimTrack)
 					CurrentAnimTrack:Play()
-					CurrentAnim = AnimName
-					CurrentAnimInstance = Anim
+					CurrentAnim = id
 
 					if CurrentAnimKeyframeHandler then
 						CurrentAnimKeyframeHandler:disconnect()
@@ -362,10 +354,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local function OnRunning(Speed)
 				if AnimationsToggled then
 					if Speed > 0.01 then
-						PlayAnimation("Running", 0.1) Pose = "Running"
-						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "180426354" then
-							SetAnimationSpeed(Speed / 14.5)
-						end
+						PlayAnimation(91400065271169) Pose = "Running"
 					elseif not EmoteNames[CurrentAnim] then 
 						PlayAnimation("Idle", 0.1) Pose = "Standing"
 					end
@@ -374,7 +363,7 @@ do -- [[ Scoped Rig Creating. ]]
 
 			local function OnJumping()
 				if AnimationsToggled then 
-					PlayAnimation("Jump", 0.1)
+					PlayAnimation(0)
 					JumpAnimTime = 0.3
 					Pose = "Jumping"
 				end
