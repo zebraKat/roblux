@@ -307,7 +307,7 @@ do -- [[ Scoped Rig Creating. ]]
 			local AnimationTable = {}
 			local AnimData = {
 				-- Movement Anims
-				Idle = "http://www.roblox.com/asset/?id=180435571", Walk = "http://www.roblox.com/asset/?id=180426354", Run = "Run.xml", Jump = "http://www.roblox.com/asset/?id=125750702", Fall = "http://www.roblox.com/asset/?id=180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "http://www.roblox.com/asset/?id=178130996",
+				Idle = "110251469536480", Walk = "91400065271169", Run = "122484000692443", Jump = "125750702", Fall = "180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "178130996",
 				-- Animations
 				dance1 = "http://www.roblox.com/asset/?id=182435998", dance2 = "http://www.roblox.com/asset/?id=182436842", dance3 = "http://www.roblox.com/asset/?id=182436935", wave = "http://www.roblox.com/asset/?id=128777973", point = "http://www.roblox.com/asset/?dan=128853357", laugh = "http://www.roblox.com/asset/?id=129423131", cheer = "http://www.roblox.com/asset/?id=129423030"
 			}
@@ -318,8 +318,7 @@ do -- [[ Scoped Rig Creating. ]]
 
 			for Name, ID in AnimData do
 				AnimationTable[Name] = {}
-				AnimationTable[Name].Anim = Instance.new("Animation")
-				AnimationTable[Name].Anim.AnimationId = ID
+				AnimationTable[Name].Anim = ID
 			end
 
 			local function SetAnimationSpeed(Speed)
@@ -334,7 +333,6 @@ do -- [[ Scoped Rig Creating. ]]
 
 				if Anim ~= CurrentAnimInstance then
 					if CurrentAnimTrack ~= nil then
-                        print(table.unpack(CurrentAnimTrack))
 						CurrentAnimTrack:Stop(TransitionTime)
 						CurrentAnimTrack:Destroy()
 					end
@@ -375,7 +373,7 @@ do -- [[ Scoped Rig Creating. ]]
 				if AnimationsToggled then
 					if Speed > 0.01 then
 						PlayAnimation("Walk", 0.1) Pose = "Running"
-						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == AnimData.Walk.Anim then
 							SetAnimationSpeed(Speed / 14.5)
 						end
 					elseif not EmoteNames[CurrentAnim] then 
