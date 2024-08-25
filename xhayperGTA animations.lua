@@ -101,12 +101,12 @@ local function OnDied()  Pose = "Dead" end
 			end
 
 
-			Player.Died:Connect(OnDied)
-			Player.Running:Connect(OnRunning)
-			Player.Jumping:Connect(OnJumping)
-			Player.Climbing:Connect(OnClimbing)
-			Player.GettingUp:Connect(OnGettingUp)
-			Player.FreeFalling:Connect(OnFreeFall)
-			Player.FallingDown:Connect(OnFallingDown)
-			Player.Seated:Connect(OnSeated)
-			Player.PlatformStanding:Connect(OnPlatformStanding)
+			Player:FindFirstChildOfClass("Humanoid").Died:Connect(OnDied)
+			Player:FindFirstChildOfClass("Humanoid").Running:Connect(OnRunning)
+			Player:FindFirstChildOfClass("Humanoid").Jumping:Connect(OnJumping)
+			Player:FindFirstChildOfClass("Humanoid").Climbing:Connect(OnClimbing)
+			Player:FindFirstChildOfClass("Humanoid").GettingUp:Connect(OnGettingUp)
+			Player:FindFirstChildOfClass("Humanoid").FreeFalling:Connect(OnFreeFall)
+			Player:FindFirstChildOfClass("Humanoid").FallingDown:Connect(OnFallingDown)
+			Player:FindFirstChildOfClass("Humanoid").Seated:Connect(OnSeated)
+			Player:FindFirstChildOfClass("Humanoid").PlatformStanding:Connect(OnPlatformStanding)
