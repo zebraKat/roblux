@@ -1171,7 +1171,7 @@ local TeleportOffsetRadius = Configuration.TeleportOffsetRadius or 12
 local Flinging = Configuration.Flinging or true
 local PresetFling = Flinging and Configuration.PresetFling or false
 
-local Animations = Configuration.Animations or trueif not getgenv()["Animator"] then
+local Animations = Configuration.Animations or true if not getgenv()["Animator"] then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/xhayperAnimTest.lua"))()
 end
 task.wait(1)
