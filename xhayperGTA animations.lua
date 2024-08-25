@@ -42,7 +42,6 @@ loadstring(Module)()
 
 if not getgenv()["Animator"] then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
-	hookAnimatorFunction() -- Hook animator to Humanoid:LoadAnimation()
 end
 
 local Players = game:GetService("Players")
@@ -50,9 +49,9 @@ local Player = workspace:FindFirstChildOfClass("Terrain"):FindFirstChild("fakeRi
 
 
 				-- Movement Anims
-				Idle = "http://www.roblox.com/asset/?id=110251469536480", 
-        Walk = "http://www.roblox.com/asset/?id=91400065271169",
-        Run = "http://www.roblox.com/asset/?id=122484000692443", 
+				Idle = "110251469536480", 
+        Walk = "91400065271169",
+        Run = "122484000692443", 
         Jump = "http://www.roblox.com/asset/?id=125750702", 
         Fall = "http://www.roblox.com/asset/?id=180436148", 
         Climb = "http://www.roblox.com/asset/?id=180436334", 
