@@ -319,7 +319,7 @@ do -- [[ Scoped Rig Creating. ]]
 
 
 			local function PlayAnimation(AnimName, TransitionTime)
-				local Anim = AnimationTable[AnimName].Anim
+				local Anim = AnimationTable[AnimName]
 
 				if Anim ~= CurrentAnimInstance then
 					if CurrentAnimTrack ~= nil then
