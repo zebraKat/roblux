@@ -18,18 +18,21 @@ local Hats = {
     ["Torso"] = {
         {Texture = "4819722776", Mesh = "4819720316", Name = "MeshPartAccessory", Offset = CFrame.Angles(0, 0, math.rad(-15))}
     },
+    ["Head"] = {
+        {Mesh= "17517530794", Texture = "17517478791", Name = "Kleos Erebus"}
+    }
 }
 
 Configuration = {}
 Configuration.ReturnOnDeath = true
-Configuration.Flinging = false
+Configuration.Flinging = true
 Configuration.PresetFling = false -- set to false if you gonna use the one from library
 Configuration.Animations = true
-Configuration.WaitTime = 2
+Configuration.WaitTime = 5
 Configuration.RigName = "FakeRig"
 Configuration.TeleportOffsetRadius = 1000
 Configuration.NoCollisions = false
-Configuration.AntiVoiding = true
+Configuration.AntiVoiding = false
 Configuration.SetSimulationRadius = true
 Configuration.DisableCharacterScripts = false
 Configuration.Hats = Hats
