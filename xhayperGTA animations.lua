@@ -48,7 +48,7 @@ end
 local Players = game:GetService("Players")
 local Player = workspace:FindFirstChildOfClass("Terrain"):FindFirstChild("fakeRig")
 
-local AnimData = {
+
 				-- Movement Anims
 				Idle = "http://www.roblox.com/asset/?id=110251469536480", 
         Walk = "http://www.roblox.com/asset/?id=91400065271169",
@@ -65,7 +65,7 @@ local AnimData = {
         point = "http://www.roblox.com/asset/?dan=128853357", 
         laugh = "http://www.roblox.com/asset/?id=129423131", 
         cheer = "http://www.roblox.com/asset/?id=129423030"
-			}
+			
 
 local function OnDied()  Pose = "Dead" end
 			local function OnGettingUp() Pose = "GettingUp"  end
@@ -75,27 +75,27 @@ local function OnDied()  Pose = "Dead" end
 			local function OnRunning(Speed)
 				
 					if Speed > 0.01 then
-						Animator.new(Player, AnimData.Run):Play()
+						Animator.new(Player, Run):Play()
             Pose = "Running"   
 					end
 	
 			end
 
 			local function OnJumping()
-			    Animator.new(Player, AnimData.Jump):Play()
+			    Animator.new(Player, Jump):Play()
 					Pose = "Jumping"
 		
 			end
 
 			local function OnClimbing(Speed)
 			
-					Animator.new(Player, AnimData.Climb):Play()
+					Animator.new(Player, Climb):Play()
 	
 			end
 
 			local function OnFreeFall()
 				
-					if JumpAnimTime <= 0 then Animator.new(Player, AnimData.Fall):Play() end
+					if JumpAnimTime <= 0 then Animator.new(Player, Fall):Play() end
 					Pose = "FreeFall"
 
 			end
