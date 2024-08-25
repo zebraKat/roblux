@@ -1,3 +1,8 @@
+if not getgenv()["Animator"] then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+	hookAnimatorFunction() -- Hook animator to Humanoid:LoadAnimation()
+end
+
 local Hats = {
     ["Head"] = {
         {Mesh= "rbxassetid://17517530794", Texture = "rbxassetid://17517478791", Name = "Kleos Erebus", Offset = CFrame.Angles(0,0,0)}
@@ -37,77 +42,6 @@ Configuration.AntiVoiding = false
 Configuration.SetSimulationRadius = true
 Configuration.DisableCharacterScripts = false
 Configuration.Hats = Hats
-local Module = game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau")
+local Module = game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/kryptonModuleGTA.lua")
 loadstring(Module)()
 
-if not getgenv()["Animator"] then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
-end
-
-local Players = game:GetService("Players")
-while task.wait() do
-local Player = workspace:FindFirstChildOfClass("Terrain"):FindFirstChild("fakeRig")
-
-
-				-- Movement Anims
-				Idle = "110251469536480", 
-        Walk = "91400065271169",
-        Run = "122484000692443", 
-        Jump = "http://www.roblox.com/asset/?id=125750702", 
-        Fall = "http://www.roblox.com/asset/?id=180436148", 
-        Climb = "http://www.roblox.com/asset/?id=180436334", 
-        Sit = "http://www.roblox.com/asset/?id=178130996",
-				-- Animations
-				dance1 = "http://www.roblox.com/asset/?id=182435998", 
-        dance2 = "http://www.roblox.com/asset/?id=182436842", 
-        dance3 = "http://www.roblox.com/asset/?id=182436935", 
-        wave = "http://www.roblox.com/asset/?id=128777973", 
-        point = "http://www.roblox.com/asset/?dan=128853357", 
-        laugh = "http://www.roblox.com/asset/?id=129423131", 
-        cheer = "http://www.roblox.com/asset/?id=129423030"
-			
-
-local function OnDied()  Pose = "Dead" end
-			local function OnGettingUp() Pose = "GettingUp"  end
-			local function OnFallingDown()Pose = "FallingDown"  end
-			local function OnSeated()  Pose = "Seated" end 
-			local function OnPlatformStanding() Pose = "PlatformStanding" end 
-			local function OnRunning(Speed)
-				
-					if Speed > 0.01 then
-						Animator.new(Player, Run):Play()
-            Pose = "Running"   
-					end
-	
-			end
-
-			local function OnJumping()
-			    Animator.new(Player, Jump):Play()
-					Pose = "Jumping"
-		
-			end
-
-			local function OnClimbing(Speed)
-			
-					Animator.new(Player, Climb):Play()
-	
-			end
-
-			local function OnFreeFall()
-				
-					if JumpAnimTime <= 0 then Animator.new(Player, Fall):Play() end
-					Pose = "FreeFall"
-
-			end
-
-
-			Player:FindFirstChildOfClass("Humanoid").Died:Connect(OnDied)
-			Player:FindFirstChildOfClass("Humanoid").Running:Connect(OnRunning)
-			Player:FindFirstChildOfClass("Humanoid").Jumping:Connect(OnJumping)
-			Player:FindFirstChildOfClass("Humanoid").Climbing:Connect(OnClimbing)
-			Player:FindFirstChildOfClass("Humanoid").GettingUp:Connect(OnGettingUp)
-			Player:FindFirstChildOfClass("Humanoid").FreeFalling:Connect(OnFreeFall)
-			Player:FindFirstChildOfClass("Humanoid").FallingDown:Connect(OnFallingDown)
-			Player:FindFirstChildOfClass("Humanoid").Seated:Connect(OnSeated)
-			Player:FindFirstChildOfClass("Humanoid").PlatformStanding:Connect(OnPlatformStanding)
-end
