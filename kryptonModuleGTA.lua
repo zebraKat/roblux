@@ -363,7 +363,7 @@ do -- [[ Scoped Rig Creating. ]]
 				if AnimationsToggled then
 					if Speed > 0.01 then
 						PlayAnimation("Walk", 0.1) Pose = "Running"
-						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "180426354" then
 							SetAnimationSpeed(Speed / 14.5)
 						end
 					elseif not EmoteNames[CurrentAnim] then 
@@ -380,33 +380,11 @@ do -- [[ Scoped Rig Creating. ]]
 				end
 			end
 
-			local function OnClimbing(Speed)
-				if AnimationsToggled then
-					PlayAnimation("Climb", 0.1) SetAnimationSpeed(Speed / 12.0) Pose = "Climbing"
-				end
-			end
 
-			local function OnFreeFall()
-				if AnimationsToggled then
-					if JumpAnimTime <= 0 then PlayAnimation("Fall", 0.3) end
-					Pose = "FreeFall"
-				end
-			end
-
-			local function OnSwimming(Speed)
-				if AnimationsToggled then Pose = Speed >= 0 and "Running" or "Standing" end
-			end
 
 			FakeHumanoid.Died:Connect(OnDied)
 			FakeHumanoid.Running:Connect(OnRunning)
 			FakeHumanoid.Jumping:Connect(OnJumping)
-			FakeHumanoid.Climbing:Connect(OnClimbing)
-			FakeHumanoid.GettingUp:Connect(OnGettingUp)
-			FakeHumanoid.FreeFalling:Connect(OnFreeFall)
-			FakeHumanoid.FallingDown:Connect(OnFallingDown)
-			FakeHumanoid.Seated:Connect(OnSeated)
-			FakeHumanoid.PlatformStanding:Connect(OnPlatformStanding)
-			FakeHumanoid.Swimming:Connect(OnSwimming)
 
 			AnimationHandlingFunction = function(Message)
 				local Emote = ""
