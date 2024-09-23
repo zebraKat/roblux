@@ -352,7 +352,6 @@ local PlayerState = {} do
 	local screenGuis = {}
 	local coreGuis = {
 		Backpack = true,
-		Chat = true,
 		Health = true,
 		PlayerList = true,
 	}
