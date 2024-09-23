@@ -2,7 +2,6 @@ local musicObject = workspace:WaitForChild("Music")
 local PlaysoundRM = game.ReplicatedStorage:WaitForChild("SetMusic")
 
 function PlaySong(soundID) 
-  assert(typeof(soundID) == ("number" or "string"))  
   PlaysoundRM:FireServer(tostring(soundID))
 end
 local Enabled = true
@@ -61,7 +60,7 @@ function KeepPlaying()
 
     PlaySong(musiclist[math.random(1,#musiclist)])
     task.wait(0.5)
-    if musicObject.TimePosition == 0 or musicObject.SoundId == "rbxassetid://nil" or musicObject.SoundId == lastsong then
+    if musicObject.TimePosition == 0 or musicObject.SoundId == "rbxassetid://nil" then
     KeepPlaying()
     end
   end
