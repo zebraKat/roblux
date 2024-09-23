@@ -6,8 +6,7 @@ function PlaySong(soundID)
   PlaysoundRM:FireServer(tostring(soundID))
 end
 local Enabled = true
-local musiclist = {
- 71109664418682,
+local musiclist = {71109664418682,
 77135691581229,
 79171021047057,
 83339419629624,
@@ -46,7 +45,14 @@ local musiclist = {
 9048508327,
 9044568441,
 9039316791,
-9048511493
+9048511493,
+9046862383,
+9039770890,
+9047106527,
+9046862919,
+9046863235,
+9046863960,
+9042294694,
 }
 
 function KeepPlaying()
