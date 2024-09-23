@@ -52,7 +52,8 @@ _G.musiclist = {
 function KeepPlaying()
   if _G.Enabled == true then
     local lastsong = musicObject.SoundId
-    PlaySong(_G.musiclist[math.random(1,#_G.musiclist)])
+    local musicList = _G.musiclist
+    PlaySong(_G.musiclist[math.random(1,#musicList)])
     task.wait(2)
     if musicObject.TimePosition == 0 or musicObject.SoundId == "rbxassetid://nil" or musicObject.SoundId == lastsong then
     KeepPlaying()
