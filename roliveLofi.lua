@@ -61,5 +61,5 @@ function KeepPlaying()
   end
 end
 
-PlaySong(musiclist[math.random(1,#musiclist)])
+KeepPlaying()
 musicObject.Ended:Connect(KeepPlaying)
