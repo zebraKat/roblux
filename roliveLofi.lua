@@ -61,6 +61,7 @@ function KeepPlaying()
     PlaySong(musiclist[math.random(1,#musiclist)])
     task.wait(0.5)
     if musicObject.TimePosition == 0 or musicObject.SoundId == "rbxassetid://nil" then
+       table.remove(musiclist,table.find(musiclist,musicObject.SoundId))
     KeepPlaying()
     end
   end
