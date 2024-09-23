@@ -5,8 +5,8 @@ function PlaySong(soundID)
   assert(typeof(soundID) == ("number" or "string"))  
   PlaysoundRM:FireServer(tostring(soundID))
 end
-
-local musiclist = {
+_G.Enabled = true
+_G.musiclist = {
  71109664418682,
 77135691581229,
 79171021047057,
@@ -50,12 +50,14 @@ local musiclist = {
 }
 
 function KeepPlaying()
+  if _G.Enabled == true then
     local lastsong = musicObject.SoundId
-    PlaySong(musiclist[math.random(1,#musiclist)])
+    PlaySong(_G.musiclist[math.random(1,#_G.musiclist)])
     task.wait(2)
     if musicObject.TimePosition == 0 or musicObject.SoundId == "rbxassetid://nil" or musicObject.SoundId == lastsong then
     KeepPlaying()
     end
+  end
 end
 
 PlaySong(musiclist[math.random(1,#musiclist)])
