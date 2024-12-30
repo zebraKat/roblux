@@ -10,8 +10,8 @@ local Config = {
 	VISUALIZE_FEET_HB = false, -- Visualize Feet Hitbox
 	VISUALIZE_COLLIDE_AND_SLIDE = false,
 	STEP_OFFSET = 1.2,
-	MASS = 8,
-	AIR_FRICTION = 0.4,
+	MASS = 16,
+	AIR_FRICTION = 0.2,
 	FRICTION = 6,
 	GRAVITY = 10,
 	JUMP_VELOCITY = 30,
@@ -19,7 +19,7 @@ local Config = {
 	--[[Accel/Deccel]]
 	GROUND_ACCEL = 14,
 	GROUND_DECCEL = 10,
-	AIR_ACCEL = 5,
+	AIR_ACCEL = 15,
 
 	--[[General Speed]]
 	AIR_SPEED = 35,
