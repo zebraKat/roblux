@@ -19,7 +19,7 @@ local Config = {
 	--[[Accel/Deccel]]
 	GROUND_ACCEL = 14,
 	GROUND_DECCEL = 10,
-	AIR_ACCEL = 15,
+	AIR_ACCEL = 7,
 
 	--[[General Speed]]
 	AIR_SPEED = 35,
