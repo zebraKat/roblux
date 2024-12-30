@@ -5,29 +5,30 @@ workspace.Gravity = 100
 
 local Config = {
 
+	
 	--[[General]]
 	VISUALIZE_FEET_HB = false, -- Visualize Feet Hitbox
 	VISUALIZE_COLLIDE_AND_SLIDE = false,
 	STEP_OFFSET = 1.2,
 	MASS = 16,
-	AIR_FRICTION = 1,
-	FRICTION = 8,
+	AIR_FRICTION = 0.4,
+	FRICTION = 6,
 	GRAVITY = 10,
 	JUMP_VELOCITY = 30,
 
 	--[[Accel/Deccel]]
-	GROUND_ACCEL = 7,
+	GROUND_ACCEL = 14,
 	GROUND_DECCEL = 10,
-	AIR_ACCEL =  2,
+	AIR_ACCEL = 12,
 
 	--[[General Speed]]
-	AIR_SPEED = 15,
-	RUN_SPEED = 8,
-	WALK_SPEED = 5,
-	CROUCH_SPEED = 3,
+	AIR_SPEED = 42,
+	RUN_SPEED = 12,
+	WALK_SPEED = 10,
+	CROUCH_SPEED = 10,
 
 	--[[Advanced Speed]]
-	AIR_MAX_SPEED = 45.5,        -- The speed at which AIR_MAX_SPEED_FRIC is applied.
+	AIR_MAX_SPEED = 36.5,        -- The speed at which AIR_MAX_SPEED_FRIC is applied.
 	AIR_MAX_SPEED_FRIC = 3,      -- The initial friction applied at max speed
 	AIR_MAX_SPEED_FRIC_DEC = .5, -- Amount multiplied to current max speed friction per 1/60sec
 	MIN_SLOPE_ANGLE = 40,
