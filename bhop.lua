@@ -13,8 +13,8 @@ local Config = {
 	MASS = 16,
 	AIR_FRICTION = 0.2,
 	FRICTION = 6,
-	GRAVITY = 10,
-	JUMP_VELOCITY = 30,
+	GRAVITY = 25,
+	JUMP_VELOCITY = 20,
 
 	--[[Accel/Deccel]]
 	GROUND_ACCEL = 14,
