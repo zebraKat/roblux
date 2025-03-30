@@ -10548,7 +10548,7 @@ end)
 
 addcmd('explorer', {'dex'}, function(args, speaker)
 	notify('Loading', 'Hold on a sec')
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/zebraKat/roblux/main/customDex.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
 end)
 
 addcmd('olddex', {'odex'}, function(args, speaker)
